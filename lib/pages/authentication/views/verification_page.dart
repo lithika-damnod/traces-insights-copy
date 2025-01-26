@@ -29,7 +29,7 @@ class VerificationPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               4,
-                  (index) => Container(
+              (index) => Container(
                 margin: const EdgeInsets.symmetric(horizontal: 9.5),
                 width: 75.0,
                 height: 60.0,
@@ -62,7 +62,8 @@ class VerificationPage extends StatelessWidget {
                   onChanged: (value) {
                     if (value.isNotEmpty && index < 3) {
                       // Move to the next box if a number is entered
-                      FocusScope.of(context).requestFocus(focusNodes[index + 1]);
+                      FocusScope.of(context)
+                          .requestFocus(focusNodes[index + 1]);
                     } else if (value.isNotEmpty && index == 3) {
                       // Hide the keyboard on the last box
                       FocusScope.of(context).unfocus();
