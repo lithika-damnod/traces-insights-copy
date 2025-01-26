@@ -10,7 +10,6 @@ class VerificationPage extends StatelessWidget {
     // Create a list of FocusNodes for the four input fields
     final List<FocusNode> focusNodes = List.generate(4, (index) => FocusNode());
 
-
     return AuthenticationLayout(
       children: [
         Padding(
@@ -89,11 +88,14 @@ class VerificationPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 60.0),
           child: TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.grey[900], // Background color
+            ),
             onPressed: () {
               // Resend verification logic
             },
             child: const Text(
-              "Resend code via SMS",
+              "Resend code via SMS 01:17",
               style: TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.w500,
