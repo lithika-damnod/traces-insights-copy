@@ -13,7 +13,7 @@ class VerificationPage extends StatelessWidget {
     return AuthenticationLayout(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 5.0),
+          padding: const EdgeInsets.only(left: 5.0, top: 30),
           child: RichText(
             text: const TextSpan(
               text: "We've sent a verification code to your email address ",
@@ -35,7 +35,7 @@ class VerificationPage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 31.0),
+          padding: const EdgeInsets.only(top: 35.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
@@ -86,7 +86,7 @@ class VerificationPage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 60.0),
+          padding: const EdgeInsets.only(top: 70.0),
           child: TextButton(
             style: TextButton.styleFrom(
               backgroundColor: Colors.grey[900], // Background color
