@@ -10,16 +10,28 @@ class VerificationPage extends StatelessWidget {
     // Create a list of FocusNodes for the four input fields
     final List<FocusNode> focusNodes = List.generate(4, (index) => FocusNode());
 
+
     return AuthenticationLayout(
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 5.0),
-          child: Text(
-            "We've sent a verification code to your email address",
-            style: TextStyle(
-              fontSize: 19.0,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: RichText(
+            text: const TextSpan(
+              text: "We've sent a verification code to your email address ",
+              style: TextStyle(
+                fontSize: 19.0,
+                fontWeight: FontWeight.w600,
+                color: Colors.white, // Default text color
+              ),
+              children: [
+                TextSpan(
+                  text: "(info@lithika.com)", // The email address
+                  style: TextStyle(
+                    color: Colors.grey, // Different color for the email address
+                    fontWeight: FontWeight.normal, // Optional: Make it bold
+                  ),
+                ),
+              ],
             ),
           ),
         ),
