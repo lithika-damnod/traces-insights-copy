@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:traces/pages/authentication/authentication.dart';
+import 'package:traces/shared/widgets/styled_text_field.dart';
 
 class VerificationPage extends StatelessWidget {
   const VerificationPage({super.key});
@@ -44,33 +45,11 @@ class VerificationPage extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 9.5),
                 width: 75.0,
                 height: 60.0,
-                child: TextField(
-                  focusNode: focusNodes[index],
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 24.0,
-                    color: Colors.white,
-                  ),
-                  keyboardType: TextInputType.number,
-                  maxLength: 1, // Limits input to one character
-                  decoration: InputDecoration(
-                    counterText: '', // Hides character counter
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.0),
-                      borderSide: BorderSide(
-                        color: Colors.grey.withOpacity(0.5),
-                        width: 2.0,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.0),
-                      borderSide: const BorderSide(
-                        color: Colors.blue, // Changes border color to blue
-                        width: 2.0,
-                      ),
-                    ),
-                  ),
-                  onChanged: (value) {
+                child: StyledTextField(
+                  placeholder: "", // Placeholder for the field
+                  type: "number", // Restrict input to numbers
+                  focused: index == 0, // Autofocus the first field
+                  onSubmitted: (value) {
                     if (value.isNotEmpty && index < 3) {
                       // Move to the next box if a number is entered
                       FocusScope.of(context)
