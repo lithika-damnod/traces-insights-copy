@@ -1,16 +1,59 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:traces/pages/authentication/authentication.dart';
 import 'package:traces/shared/widgets/styled_text_field.dart';
 
-class VerificationPage extends StatelessWidget {
+class VerificationPage extends StatefulWidget {
   const VerificationPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Create a list of FocusNodes for the four input fields
-    final List<FocusNode> focusNodes = List.generate(4, (index) => FocusNode());
+  State<VerificationPage> createState() => _VerificationPageState();
+}
 
+class _VerificationPageState extends State<VerificationPage> {
+  final List<TextEditingController> _controllers =
+      List.generate(4, (index) => TextEditingController());
+  final List<FocusNode> _focusNodes = List.generate(4, (index) => FocusNode());
+
+  @override
+  void initState() {
+    super.initState();
+    for (int i = 0; i < _controllers.length; i++) {
+      _controllers[i].addListener(() {
+        if (_controllers[i].text.isNotEmpty && i < _controllers.length - 1) {
+          _focusNodes[i + 1].requestFocus();
+        }
+        if (_controllers.every((controller) => controller.text.isNotEmpty)) {
+          _navigateToForgotPassword();
+        }
+      });
+    }
+  }
+
+  void _navigateToForgotPassword() {
+    FocusScope.of(context).unfocus(); // Dismiss the keyboard
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => const ForgotPasswordPage(),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
+    for (var focusNode in _focusNodes) {
+      focusNode.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AuthenticationLayout(
       children: [
         Padding(
@@ -27,8 +70,9 @@ class VerificationPage extends StatelessWidget {
                 TextSpan(
                   text: "(info@lithika.com)", // The email address
                   style: TextStyle(
-                    color: Colors.grey, // Different color for the email address
-                    fontWeight: FontWeight.normal, // Optional: Make it bold
+                    color:
+                        Colors.white60, // Different color for the email address
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -38,81 +82,45 @@ class VerificationPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 35.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              4,
-              (index) => Container(
-                margin: const EdgeInsets.symmetric(horizontal: 9.5),
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(4, (index) {
+              return SizedBox(
                 width: 75.0,
                 height: 60.0,
                 child: StyledTextField(
-                  placeholder: "", // Placeholder for the field
-                  type: "number", // Restrict input to numbers
-                  focused: index == 0, // Autofocus the first field
-                  onSubmitted: (value) {
-                    if (value.isNotEmpty && index < 3) {
-                      // Move to the next box if a number is entered
-                      FocusScope.of(context)
-                          .requestFocus(focusNodes[index + 1]);
-                    } else if (value.isNotEmpty && index == 3) {
-                      // Hide the keyboard on the last box
-                      FocusScope.of(context).unfocus();
-                    }
-                  },
+                  type: "number",
+                  placeholder: "",
+                  focused: index == 0,
+                  compare: null,
+                  onSubmitted: (value) {},
+                  controller: _controllers[index],
+                  focusNode: _focusNodes[index],
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(1),
+                  ],
+                  disableClearIcon: true, // Disable the 'x' icon
                 ),
-              ),
-            ),
+              );
+            }),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 70.0),
+          padding: const EdgeInsets.only(left: 5.0, top: 70.0),
           child: TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: Colors.grey[900], // Background color
+              backgroundColor:
+                  const Color.fromARGB(255, 20, 20, 20), // Background color
             ),
             onPressed: () {
               // Resend verification logic
             },
-            child: const Text(
+            child: Text(
               "Resend code via SMS 01:17",
               style: TextStyle(
-                color: Colors.grey,
+                color: Colors.grey[600],
                 fontWeight: FontWeight.w500,
                 fontSize: 18.0,
-              ),
-            ),
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.only(top: 500.0),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white.withOpacity(0.9),
-              foregroundColor: Colors.black,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 11,
-              ),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(18),
-                ),
-              ),
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => const ForgotPasswordPage(),
-                ),
-              );
-            },
-            child: const Text(
-              "Verify",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w600,
               ),
             ),
           ),
