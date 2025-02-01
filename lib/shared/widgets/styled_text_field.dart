@@ -13,7 +13,7 @@ class StyledTextField extends StatefulWidget {
     this.controller,
     this.focusNode,
     this.inputFormatters,
-    this.disableClearIcon = false, // New property
+    this.disableClearIcon = false,
   });
 
   final String placeholder;
@@ -24,7 +24,7 @@ class StyledTextField extends StatefulWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final List<TextInputFormatter>? inputFormatters;
-  final bool disableClearIcon; // New property
+  final bool disableClearIcon;
 
   @override
   State<StyledTextField> createState() => _StyledTextFieldState();
