@@ -14,21 +14,14 @@ class _PoliciesPageState extends State<PoliciesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // Match the dark theme
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black, // Match theme
-        // elevation: 0, // Remove shadow
-        automaticallyImplyLeading: false, // Prevents default back button
+        backgroundColor: Colors.black,
+        automaticallyImplyLeading: false,
         actions: [
-          // IconButton(
-          //   icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
-          //   onPressed: () {
-          //     Navigator.pop(context); // Navigate back
-          //   },
-          // ),
           IconButton(
             onPressed: () {
-              Navigator.of(context).pop(); // go back
+              Navigator.of(context).pop();
             },
             icon: Icon(
               Icons.arrow_back,
@@ -177,10 +170,8 @@ class _PoliciesPageState extends State<PoliciesPage> {
                 ),
               ),
             ),
-
-            // Fixed Bottom Section
             Container(
-              color: Colors.black, // Ensure it blends with the background
+              color: Colors.black,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: Column(
                 children: [
@@ -193,16 +184,14 @@ class _PoliciesPageState extends State<PoliciesPage> {
                         child: Text(
                           "I agree to Terms and Privacy Policy",
                           style: const TextStyle(
-                            fontSize: 20, // Slightly reduced font size
+                            fontSize: 20,
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                           ),
-                          textAlign: TextAlign.center, // Center-align text
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                      const SizedBox(
-                          width:
-                              10), // Reduced spacing between text and checkbox
+                      const SizedBox(width: 10),
                       GestureDetector(
                         onTap: () {
                           setState(() {
@@ -210,6 +199,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                           });
                         },
                         child: Container(
+                          margin: const EdgeInsets.only(right: 10),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
@@ -219,7 +209,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                             color:
                                 _isChecked ? Colors.blue : Colors.transparent,
                           ),
-                          width: 25.41, // Slightly smaller checkbox
+                          width: 25.41,
                           height: 25.41,
                           alignment: Alignment.center,
                           child: _isChecked
@@ -239,9 +229,8 @@ class _PoliciesPageState extends State<PoliciesPage> {
                       onPressed: _isChecked ? () {} : null,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(15),
-                        backgroundColor: _isChecked
-                            ? Colors.white
-                            : Colors.white24, // Dim button if disabled
+                        backgroundColor:
+                            _isChecked ? Colors.white : Colors.white24,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -252,9 +241,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
-                          color: _isChecked
-                              ? Colors.black
-                              : Colors.white38, // Dim text when disabled
+                          color: _isChecked ? Colors.black : Colors.white38,
                         ),
                       ),
                     ),
