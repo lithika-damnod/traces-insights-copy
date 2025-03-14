@@ -18,9 +18,7 @@ class ReturnsPolicyView extends StatelessWidget {
             children: [
               Text(
                 "Returns Policy",
-                style: TextStyle(
-                  fontSize: 18.0,
-                ),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
                 textAlign: TextAlign.left,
               ),
               SizedBox(height: 10.0),
