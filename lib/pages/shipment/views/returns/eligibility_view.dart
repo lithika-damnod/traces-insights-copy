@@ -50,7 +50,22 @@ class EligibilityView extends StatelessWidget {
                         .findAncestorStateOfType<ModalBottomSheetState>();
                     modal?.navigateTo(ReturnsPolicyView());
                   },
-                  child: Text("Continue"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF0A84FF),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    minimumSize: Size(391, 47),
+                  ),
+                  child: Text(
+                    "Continue",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ],
