@@ -12,7 +12,7 @@ class EligibilityView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 29.0, left: 25.0),
+          padding: const EdgeInsets.only(top: 29.0, left: 25.0, right: 25.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -21,7 +21,15 @@ class EligibilityView extends StatelessWidget {
                 style: TextStyle(fontSize: 18.0),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 8.0),
+              Text(
+                "Start a return in just a few steps. Choose your item, select a return method, and get your refund quickly.",
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.grey[400],
+                ),
+              ),
+              SizedBox(height: 20.0),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
