@@ -7,26 +7,30 @@ class EligibilityView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Start replacing content from here
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 26.0),
+          padding: const EdgeInsets.only(top: 29.0, left: 25.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Report a Return (Shows Eligbility Status)",
+                "Report a Return",
                 style: TextStyle(fontSize: 18.0),
+                textAlign: TextAlign.left,
               ),
               SizedBox(height: 10.0),
-              ElevatedButton(
-                onPressed: () {
-                  final modal =
-                      context.findAncestorStateOfType<ModalBottomSheetState>();
-                  modal?.navigateTo(ReturnsPolicyView());
-                },
-                child: Text("Continue"),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    final modal = context
+                        .findAncestorStateOfType<ModalBottomSheetState>();
+                    modal?.navigateTo(ReturnsPolicyView());
+                  },
+                  child: Text("Continue"),
+                ),
               ),
             ],
           ),
