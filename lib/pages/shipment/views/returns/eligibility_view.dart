@@ -24,7 +24,7 @@ class EligibilityView extends StatelessWidget {
               child: Center(
                 child: Icon(
                   Icons.close,
-                  color: Colors.white,
+                  color: Color(0xFF707079),
                   size: 20,
                 ),
               ),
