@@ -12,7 +12,7 @@ class ReturnsPolicyView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 25.0, left: 25.0, right: 25.0),
+          padding: const EdgeInsets.only(top: 25.0, left: 25.0, right: 14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -24,9 +24,23 @@ class ReturnsPolicyView extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
               SizedBox(height: 10.0),
-              Text(
-                "We accept returns within 30 days of delivery. Items must be unused, in their original packaging, and include proof of purchase. Certain items, such as final sale, personalized, or perishable goods, cannot be returned.",
-                style: TextStyle(fontSize: 14.0, color: Color(0x99FFFFFF)),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      "We accept returns within 30 days of delivery. Items must be unused, in their original packaging, and include proof of purchase. Certain items, such as final sale, personalized, or perishable goods, cannot be returned.",
+                      style:
+                          TextStyle(fontSize: 14.0, color: Color(0x99FFFFFF)),
+                    ),
+                  ),
+                  SizedBox(width: 14),
+                  Container(
+                    width: 2,
+                    height: 47,
+                    color: Colors.white.withOpacity(0.2),
+                  ),
+                ],
               ),
               SizedBox(height: 12.0),
               Text(
