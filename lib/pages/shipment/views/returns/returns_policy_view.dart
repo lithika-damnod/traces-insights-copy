@@ -24,6 +24,21 @@ class ReturnsPolicyView extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
               SizedBox(height: 10.0),
+              Text(
+                "We accept returns within 30 days of delivery. Items must be unused, in their original packaging, and include proof of purchase. Certain items, such as final sale, personalized, or perishable goods, cannot be returned.",
+                style: TextStyle(fontSize: 14.0, color: Color(0x99FFFFFF)),
+              ),
+              SizedBox(height: 12.0),
+              Text(
+                "Returns can be made by dropping off the item at a designated location or scheduling a courier pickup if eligible. Refunds will be processed to the original payment method within 5–10 business days after the return is received and inspected. If the return is due to a damaged or incorrect item, we will cover the return shipping costs.",
+                style: TextStyle(fontSize: 14.0, color: Color(0x99FFFFFF)),
+              ),
+              SizedBox(height: 12.0),
+              Text(
+                "For any return-related issues, please contact our support team within 7 days of receiving your item.",
+                style: TextStyle(fontSize: 14.0, color: Colors.grey[500]),
+              ),
+              SizedBox(height: 24),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
