@@ -43,7 +43,10 @@ class EligibilityView extends StatelessWidget {
                 children: [
                   Text(
                     "Report a Return",
-                    style: TextStyle(fontSize: 18.0),
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.white,
+                    ),
                     textAlign: TextAlign.left,
                   ),
                   SizedBox(height: 8.0),
@@ -51,7 +54,7 @@ class EligibilityView extends StatelessWidget {
                     "Start a return in just a few steps. Choose your item, select a return method, and get your refund quickly.",
                     style: TextStyle(
                       fontSize: 14.0,
-                      color: Colors.grey[400],
+                      color: Color(0x99FFFFFF),
                     ),
                   ),
                   SizedBox(height: 20.0),
@@ -63,7 +66,10 @@ class EligibilityView extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
                           "—",
-                          style: TextStyle(fontSize: 18, color: Colors.green),
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Color(0xFF56ED7E),
+                          ),
                         ),
                       ),
                       _buildDateSelector(context, "Thu Jan 30",
@@ -110,16 +116,18 @@ class EligibilityView extends StatelessWidget {
       {bool showCheck = false}) {
     return Row(
       children: [
-        Icon(Icons.calendar_today, color: Colors.green, size: 18),
+        Icon(Icons.calendar_today, color: Color(0xFF56ED7E), size: 18),
         SizedBox(width: 6),
         Text(
           date,
           style: TextStyle(
-              fontSize: 14, fontWeight: FontWeight.w500, color: Colors.green),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF56ED7E)),
         ),
         if (showCheck) ...[
           SizedBox(width: 6),
-          Icon(Icons.check, color: Colors.green, size: 18),
+          Icon(Icons.check, color: Color(0xFF56ED7E), size: 18),
         ]
       ],
     );
