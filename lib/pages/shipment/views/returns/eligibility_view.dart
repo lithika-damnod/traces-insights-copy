@@ -30,6 +30,19 @@ class EligibilityView extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _buildDateSelector(context, "Thu Jan 30"),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Text("—",
+                        style: TextStyle(fontSize: 18, color: Colors.green)),
+                  ),
+                  _buildDateSelector(context, "Thu Jan 30", showCheck: true),
+                ],
+              ),
+              SizedBox(height: 24),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
@@ -43,6 +56,25 @@ class EligibilityView extends StatelessWidget {
             ],
           ),
         ),
+      ],
+    );
+  }
+
+  Widget _buildDateSelector(BuildContext context, String date,
+      {bool showCheck = false}) {
+    return Row(
+      children: [
+        Icon(Icons.calendar_today, color: Colors.green, size: 18),
+        SizedBox(width: 6),
+        Text(date,
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.green)),
+        if (showCheck) ...[
+          SizedBox(width: 6),
+          Icon(Icons.check, color: Colors.green, size: 18),
+        ]
       ],
     );
   }
