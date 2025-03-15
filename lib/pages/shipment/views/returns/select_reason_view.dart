@@ -2,19 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:traces/pages/shipment/views/returns/confirmation_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 
-class SelectReasonView extends StatelessWidget {
+class SelectReasonView extends StatefulWidget {
   const SelectReasonView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    List<String> reasons = [
-      "Wrong Item Received",
-      "Damaged Item / Defective Item",
-      "Defective Item",
-      "Item Not as Described",
-      "Other Reason"
-    ];
+  State<SelectReasonView> createState() => _SelectReasonViewState();
+}
 
+class _SelectReasonViewState extends State<SelectReasonView> {
+  List<String> reasons = [
+    "Wrong Item Received",
+    "Damaged Item / Defective Item",
+    "Defective Item",
+    "Item Not as Described",
+    "Other Reason"
+  ];
+
+  String? selectedReason;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,10 +51,14 @@ class SelectReasonView extends StatelessWidget {
                             style:
                                 TextStyle(fontSize: 16.0, color: Colors.white),
                           ),
+                          trailing: selectedReason == reason
+                              ? Icon(Icons.check,
+                                  color: Color(0xFF0A84FF), size: 20)
+                              : null,
                           onTap: () {
-                            final modal = context.findAncestorStateOfType<
-                                ModalBottomSheetState>();
-                            modal?.navigateTo(ConfirmationView());
+                            setState(() {
+                              selectedReason = reason;
+                            });
                           },
                         ),
                         if (reason != reasons.last)
