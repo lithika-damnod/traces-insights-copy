@@ -19,7 +19,8 @@ class EligibilityView extends StatelessWidget {
               Text(
                 "Report a Return",
                 style: TextStyle(
-                  fontSize: 18.0,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),
                 textAlign: TextAlign.left,
@@ -28,7 +29,8 @@ class EligibilityView extends StatelessWidget {
               Text(
                 "Start a return in just a few steps. Choose your item, select a return method, and get your refund quickly.",
                 style: TextStyle(
-                  fontSize: 14.0,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w400,
                   color: Color(0x99FFFFFF),
                 ),
               ),
@@ -69,7 +71,7 @@ class EligibilityView extends StatelessWidget {
                   child: Text(
                     "Continue",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
