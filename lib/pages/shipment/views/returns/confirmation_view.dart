@@ -24,37 +24,48 @@ class ConfirmationView extends StatelessWidget {
                   Text(
                     "Expected Pickup Date",
                     style: TextStyle(
-                        fontSize: 14.0, color: Colors.white.withOpacity(0.6)),
+                      fontSize: 17.0,
+                      color: Colors.white.withOpacity(0.5),
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  SizedBox(width: 6),
+                  SizedBox(width: 14),
                   Icon(
                     Icons.calendar_today,
                     size: 14,
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.white.withOpacity(0.5),
                   ),
                   SizedBox(width: 6),
                   Text(
                     "Thu Jan 30",
                     style: TextStyle(
-                        fontSize: 14.0, color: Colors.white.withOpacity(0.6)),
+                      fontSize: 17.0,
+                      color: Colors.white.withOpacity(0.5),
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ],
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 14.0),
               Text(
                 "Your return request has been received",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w500,
                     color: Colors.white),
               ),
-              SizedBox(height: 8.0),
+              SizedBox(height: 14.0),
               Text(
                 "A driver will come to pick up your return item from your provided address. Please ensure the item is securely packed and ready for collection.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 14.0, color: Colors.white.withOpacity(0.8)),
+                  fontSize: 13.0,
+                  color: Colors.white.withOpacity(
+                    0.6,
+                  ),
+                  fontWeight: FontWeight.w400,
+                ),
               ),
               SizedBox(height: 20),
             ],
