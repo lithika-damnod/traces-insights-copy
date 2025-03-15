@@ -12,10 +12,20 @@ class ConfirmationView extends StatelessWidget {
           padding: const EdgeInsets.only(top: 26.0, left: 25.0, right: 25.0),
           child: Column(
             children: [
-              Icon(
-                Icons.check_circle,
-                size: 50,
-                color: Color(0xFF0A84FF),
+              Container(
+                width: 53,
+                height: 52,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Color(0xFF0A84FF), width: 4),
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.check,
+                    size: 35,
+                    color: Color(0xFF0A84FF),
+                  ),
+                ),
               ),
               SizedBox(height: 10.0),
               Row(
