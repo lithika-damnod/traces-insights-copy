@@ -7,26 +7,29 @@ class SelectReasonView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Start replacing content from here
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 26.0),
+          padding: const EdgeInsets.only(top: 26.0, left: 25.0, right: 25.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Select Reason to Return",
                 style: TextStyle(fontSize: 18.0),
               ),
               SizedBox(height: 10.0),
-              ElevatedButton(
-                onPressed: () {
-                  final modal =
-                      context.findAncestorStateOfType<ModalBottomSheetState>();
-                  modal?.navigateTo(ConfirmationView());
-                },
-                child: Text("Continue"),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    final modal = context
+                        .findAncestorStateOfType<ModalBottomSheetState>();
+                    modal?.navigateTo(ConfirmationView());
+                  },
+                  child: Text("Continue"),
+                ),
               ),
             ],
           ),
