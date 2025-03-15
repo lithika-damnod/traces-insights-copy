@@ -214,7 +214,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //showAddShipmentModal Widget
+
   void _showAddShipmentModal(BuildContext context) {
+    TextEditingController trackingController = TextEditingController();
+    ValueNotifier<bool> isValid = ValueNotifier(false);
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.black,
@@ -222,45 +227,133 @@ class _HomePageState extends State<HomePage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                "Add New Shipment",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 36,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(60, 60, 67, 0.5),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Link New Shipment",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.qr_code,
+                          color: Colors.blue,
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    "Provide your shipment details to link it to your account.You can enter the information manually or scan the QR code for faster input.",
+                    style: TextStyle(
+                      fontSize: 15.299999237060547,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  TextField(
+                    controller: trackingController,
+                    onChanged: (text) {
+                      setModalState(() {
+                        isValid.value = text.isNotEmpty;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Enter Tracking Number",
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[900],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.grey[800]!),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.blue),
+                      ),
+                      suffixIcon: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (isValid.value)
+                            const Padding(
+                              padding: EdgeInsets.only(left: 8.0),
+                              child: Icon(Icons.check, color: Colors.green),
+                            ),
+                          IconButton(
+                            icon: const Icon(Icons.close, color: Colors.grey),
+                            onPressed: () {
+                              setModalState(() {
+                                trackingController.clear();
+                                isValid.value = false;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  const SizedBox(height: 16),
+                  ValueListenableBuilder<bool>(
+                    valueListenable: isValid,
+                    builder: (context, isEnabled, child) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                isEnabled ? Colors.blue : Colors.grey[800],
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          onPressed: isEnabled
+                              ? () {
+                                  Navigator.pop(context);
+                                }
+                              : null,
+                          child: const Text(
+                            "Add Shipment",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                ],
               ),
-              const SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: "Tracking Number",
-                  labelStyle: TextStyle(color: Colors.white),
-                  filled: true,
-                  fillColor: Colors.grey[900],
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-                style: const TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text("Add Shipment",
-                    style: TextStyle(color: Colors.white)),
-              ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
