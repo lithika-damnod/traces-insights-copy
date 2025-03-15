@@ -57,7 +57,7 @@ class _SelectReasonViewState extends State<SelectReasonView> {
                             ),
                             trailing: selectedReason == reason
                                 ? Icon(Icons.check,
-                                    color: Color(0xFF0A84FF), size: 20)
+                                    color: Color(0xFF0A84FF), size: 24)
                                 : null,
                             onTap: () {
                               setState(() {
