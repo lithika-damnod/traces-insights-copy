@@ -70,11 +70,11 @@ class ConfirmationView extends StatelessWidget {
                 "A driver will come to pick up your return item from your provided address. Please ensure the item is securely packed and ready for collection.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 13.0,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w400,
                   color: Colors.white.withOpacity(
                     0.6,
                   ),
-                  fontWeight: FontWeight.w400,
                 ),
               ),
               SizedBox(height: 20),
