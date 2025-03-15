@@ -9,7 +9,7 @@ class ConfirmationView extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 26.0, left: 25.0, right: 25.0),
+          padding: const EdgeInsets.only(top: 35.0, left: 25.0, right: 25.0),
           child: Column(
             children: [
               Container(
@@ -27,7 +27,7 @@ class ConfirmationView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 35.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
