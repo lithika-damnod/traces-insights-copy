@@ -94,7 +94,7 @@ class _SelectReasonViewState extends State<SelectReasonView> {
                     child: Text(
                       "Submit Request",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),
