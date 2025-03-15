@@ -33,7 +33,7 @@ class _SelectReasonViewState extends State<SelectReasonView> {
             children: [
               Text(
                 "Select Reason to Return",
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 10.0),
               Container(
@@ -49,7 +49,7 @@ class _SelectReasonViewState extends State<SelectReasonView> {
                           title: Text(
                             reason,
                             style:
-                                TextStyle(fontSize: 16.0, color: Colors.white),
+                                TextStyle(fontSize: 17.0, color: Colors.white),
                           ),
                           trailing: selectedReason == reason
                               ? Icon(Icons.check,
