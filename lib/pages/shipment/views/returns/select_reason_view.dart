@@ -7,6 +7,14 @@ class SelectReasonView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> reasons = [
+      "Wrong Item Received",
+      "Damaged Item / Defective Item",
+      "Defective Item",
+      "Item Not as Described",
+      "Other Reason"
+    ];
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,9 +26,39 @@ class SelectReasonView extends StatelessWidget {
             children: [
               Text(
                 "Select Reason to Return",
-                style: TextStyle(fontSize: 18.0),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 10.0),
+              Container(
+                decoration: BoxDecoration(
+                  color: Color(0xFF1C1C1E),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: reasons.map((reason) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            reason,
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.white),
+                          ),
+                          onTap: () {
+                            final modal = context.findAncestorStateOfType<
+                                ModalBottomSheetState>();
+                            modal?.navigateTo(ConfirmationView());
+                          },
+                        ),
+                        if (reason != reasons.last)
+                          Divider(
+                              color: Colors.white.withOpacity(0.2),
+                              thickness: 1),
+                      ],
+                    );
+                  }).toList(),
+                ),
+              ),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
