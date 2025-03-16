@@ -4,6 +4,7 @@ import 'package:traces/pages/shipment/views/edit/pin_location_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/features/shipment/widgets/custom_text_field.dart';
 import 'package:traces/features/shipment/widgets/custom_elevated_button.dart';
+import 'package:traces/features/shipment/widgets/circular_icon_button.dart';
 
 class EditShippingInformationView extends StatelessWidget {
   const EditShippingInformationView({super.key});
@@ -36,19 +37,19 @@ class EditShippingInformationView extends StatelessWidget {
                 Row(
                   children: [
                     /// **Back Button (Circular)**
-                    _buildCircularButton(
-                      icon: CupertinoIcons.arrow_uturn_left, // Back arrow icon
-                      iconColor: Color(0xFF8E8E93), // Light gray icon
-                      backgroundColor: Color(0xFF1C1C1E), // Dark background
+                    CircularIconButton(
+                      icon: CupertinoIcons.arrow_uturn_left,
+                      iconColor: Color(0xFF8E8E93),
+                      backgroundColor: Color(0xFF1C1C1E),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
-                    SizedBox(width: 16), // Space between buttons
+                    SizedBox(width: 16),
 
                     /// **Add Button (Circular)**
-                    _buildCircularButton(
-                      icon: CupertinoIcons.add, // Plus icon
-                      iconColor: Color(0xFF0A84FF), // Blue icon
-                      backgroundColor: Color(0xFF1C1C1E), // Dark background
+                    CircularIconButton(
+                      icon: CupertinoIcons.add,
+                      iconColor: Color(0xFF0A84FF),
+                      backgroundColor: Color(0xFF1C1C1E),
                       onPressed: () {
                         // Handle add action
                       },
@@ -82,34 +83,6 @@ class EditShippingInformationView extends StatelessWidget {
               },
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  /// ** Reusable Circular Button Widget**
-  Widget _buildCircularButton({
-    required IconData icon,
-    required Color iconColor,
-    required Color backgroundColor,
-    required VoidCallback onPressed,
-  }) {
-    return InkWell(
-      onTap: onPressed,
-      borderRadius: BorderRadius.circular(50),
-      child: Container(
-        width: 38, // Circular button size
-        height: 38,
-        decoration: BoxDecoration(
-          color: backgroundColor, // Dark background
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: Icon(
-            icon,
-            color: iconColor, // Icon color
-            size: 20, // Adjust size if needed
-          ),
         ),
       ),
     );
