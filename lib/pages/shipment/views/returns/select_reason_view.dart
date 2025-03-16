@@ -28,7 +28,7 @@ class _SelectReasonViewState extends State<SelectReasonView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 26.0, left: 25.0, right: 25.0),
+            padding: const EdgeInsets.only(top: 25.0, left: 25.0, right: 25.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -36,45 +36,50 @@ class _SelectReasonViewState extends State<SelectReasonView> {
                   "Select Reason to Return",
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
                 ),
-                SizedBox(height: 10.0),
+                SizedBox(height: 15.0),
                 Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF1C1C1E),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(18),
                   ),
                   child: Column(
                     children: reasons.map((reason) {
                       return Column(
                         children: [
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 1.0),
-                            dense: true,
-                            title: Text(
-                              reason,
-                              style: TextStyle(
-                                  fontSize: 17.0, color: Colors.white),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 1.0),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 18.0, vertical: 1.0),
+                              dense: true,
+                              title: Text(
+                                reason,
+                                style: TextStyle(
+                                    fontSize: 17.0, color: Colors.white),
+                              ),
+                              trailing: selectedReason == reason
+                                  ? Icon(Icons.check,
+                                      color: Color(0xFF0A84FF), size: 24)
+                                  : null,
+                              onTap: () {
+                                setState(() {
+                                  selectedReason = reason;
+                                });
+                              },
                             ),
-                            trailing: selectedReason == reason
-                                ? Icon(Icons.check,
-                                    color: Color(0xFF0A84FF), size: 24)
-                                : null,
-                            onTap: () {
-                              setState(() {
-                                selectedReason = reason;
-                              });
-                            },
                           ),
                           if (reason != reasons.last)
                             Divider(
-                                color: Colors.white.withOpacity(0.2),
-                                thickness: 1),
+                              color: Colors.white.withOpacity(0.2),
+                              thickness: 1,
+                              indent: 18,
+                            )
                         ],
                       );
                     }).toList(),
                   ),
                 ),
-                SizedBox(height: 16.0),
+                SizedBox(height: 16),
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
