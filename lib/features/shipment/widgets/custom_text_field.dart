@@ -22,7 +22,7 @@ class CustomTextField extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              color: Color.fromRGBO(255, 255, 255, 0.4),
+              color: Color.fromRGBO(255, 255, 255, 0.40),
               fontSize: 18.0,
               fontWeight: FontWeight.w500,
               fontFamily: "SF Pro Text",
@@ -43,7 +43,7 @@ class CustomTextField extends StatelessWidget {
             decoration: InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(16, 11, 0, 11),
               filled: true,
-              fillColor: Color(0xFF38383A),
+              fillColor: Color.fromRGBO(28, 28, 30, 1),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide.none,
@@ -51,8 +51,11 @@ class CustomTextField extends StatelessWidget {
               suffixIcon: isEditable
                   ? Padding(
                       padding: EdgeInsets.only(right: 16.0),
-                      child:
-                          Icon(Icons.clear_rounded, color: Color(0xFF8E8E93)),
+                      child: Icon(
+                        Icons.cancel,
+                        color: Color(0xFF8E8E93),
+                        size: 18,
+                      ),
                     )
                   : null,
             ),
