@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final String label;
   final String hint;
   final bool isEditable;
@@ -13,14 +13,34 @@ class CustomTextField extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _CustomTextFieldState createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.hint);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          /// **Label**
           Text(
-            label,
+            widget.label,
             style: TextStyle(
               color: Color.fromRGBO(255, 255, 255, 0.40),
               fontSize: 18.0,
@@ -30,9 +50,11 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           SizedBox(height: 6.0),
+
+          /// **Text Field**
           TextFormField(
-            initialValue: hint,
-            enabled: isEditable,
+            controller: _controller,
+            enabled: widget.isEditable,
             style: TextStyle(
               color: Color.fromRGBO(235, 235, 245, 0.60),
               fontSize: 18.0,
@@ -48,13 +70,22 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide.none,
               ),
-              suffixIcon: isEditable
+
+              /// **Clear Button without Click Effect**
+              suffixIcon: widget.isEditable
                   ? Padding(
                       padding: EdgeInsets.only(right: 16.0),
-                      child: Icon(
-                        Icons.cancel,
-                        color: Color(0xFF8E8E93),
-                        size: 18,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _controller.clear(); // Clear text field
+                          });
+                        },
+                        child: Icon(
+                          Icons.cancel,
+                          color: Color(0xFF8E8E93),
+                          size: 18,
+                        ),
                       ),
                     )
                   : null,
