@@ -63,7 +63,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               letterSpacing: -0.408,
             ),
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(16, 11, 0, 11),
+              contentPadding: EdgeInsets.fromLTRB(16, 11, 0, 10),
               filled: true,
               fillColor: Color.fromRGBO(28, 28, 30, 1),
               border: OutlineInputBorder(

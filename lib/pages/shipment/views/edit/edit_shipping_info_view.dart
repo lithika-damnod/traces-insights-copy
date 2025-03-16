@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:traces/pages/shipment/views/edit/pin_location_view.dart';
+import 'package:traces/pages/shipment/views/edit/view_addresses_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/features/shipment/widgets/custom_text_field.dart';
 import 'package:traces/features/shipment/widgets/custom_elevated_button.dart';
@@ -51,7 +52,9 @@ class EditShippingInformationView extends StatelessWidget {
                       iconColor: Color(0xFF0A84FF),
                       backgroundColor: Color(0xFF1C1C1E),
                       onPressed: () {
-                        // Handle add action
+                        final modal = context
+                            .findAncestorStateOfType<ModalBottomSheetState>();
+                        modal?.navigateTo(ViewAddressesView());
                       },
                     ),
                   ],
@@ -62,10 +65,12 @@ class EditShippingInformationView extends StatelessWidget {
             SizedBox(height: 8),
 
             /// **Form Fields**
-            CustomTextField(label: "Street Address Line 1", hint: ""),
-            CustomTextField(label: "Street Address Line 2", hint: ""),
-            CustomTextField(label: "City", hint: ""),
-            CustomTextField(label: "Province", hint: ""),
+            CustomTextField(
+                label: "Street Address Line 1", hint: "Enter street address 1"),
+            CustomTextField(
+                label: "Street Address Line 2", hint: "Enter street address 2"),
+            CustomTextField(label: "City", hint: "Enter city name"),
+            CustomTextField(label: "Province", hint: "Enter province"),
             CustomTextField(
                 label: "Country", hint: "Sri Lanka", isEditable: false),
 
