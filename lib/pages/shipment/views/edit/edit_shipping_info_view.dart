@@ -434,6 +434,7 @@
 import 'package:flutter/material.dart';
 import 'package:traces/pages/shipment/views/edit/pin_location_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
+import 'package:traces/features/shipment/widgets/custom_text_field.dart';
 
 class EditShippingInformationView extends StatelessWidget {
   const EditShippingInformationView({super.key});
@@ -473,11 +474,14 @@ class EditShippingInformationView extends StatelessWidget {
             SizedBox(height: 5),
 
             /// **Form Fields**
-            _buildTextField("Street Address Line 1", "No. 50, Madagalla Road"),
-            _buildTextField("Street Address Line 2", "No. 50, Madagalla Road"),
-            _buildTextField("City", "Kurunegala"),
-            _buildTextField("Province", "North Western"),
-            _buildTextField("Country", "Sri Lanka", isEditable: false),
+            CustomTextField(
+                label: "Street Address Line 1", hint: "No. 50, Madagalla Road"),
+            CustomTextField(
+                label: "Street Address Line 2", hint: "No. 50, Madagalla Road"),
+            CustomTextField(label: "City", hint: "Kurunegala"),
+            CustomTextField(label: "Province", hint: "North Western"),
+            CustomTextField(
+                label: "Country", hint: "Sri Lanka", isEditable: false),
 
             SizedBox(height: 20),
 
@@ -498,55 +502,6 @@ class EditShippingInformationView extends StatelessWidget {
   }
 
   /// **Reusable TextField Widget**
-  Widget _buildTextField(String label, String hint, {bool isEditable = true}) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-                color: Color.fromRGBO(255, 255, 255, 0.4),
-                fontSize: 18.0,
-                fontWeight: FontWeight.w500,
-                fontFamily: "SF Pro Text",
-                letterSpacing: -0.408),
-          ),
-          SizedBox(height: 6.0),
-          TextFormField(
-            initialValue: hint,
-            enabled: isEditable,
-            style: TextStyle(
-                color: Color.fromRGBO(235, 235, 245, 0.60),
-                fontSize: 18.0,
-                fontWeight: FontWeight.w400,
-                fontFamily: "SF Pro Text",
-                letterSpacing: -0.408),
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(
-                  16, 11, 0, 11), // (Left, Top, Right, Bottom)
-              filled: true,
-              fillColor: Color(0xFF38383A), // Darker field background
-              border: OutlineInputBorder(
-                borderRadius:
-                    BorderRadius.circular(10.0), // Matches right-side UI
-                borderSide: BorderSide.none,
-              ),
-              suffixIcon: isEditable
-                  ? Padding(
-                      padding: EdgeInsets.only(
-                          right: 16.0), // Ensure padding for clear icon
-                      child:
-                          Icon(Icons.clear_rounded, color: Color(0xFF8E8E93)),
-                    )
-                  : null,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   /// **Reusable Button**
   Widget _buildElevatedButton(
