@@ -435,6 +435,7 @@ import 'package:flutter/material.dart';
 import 'package:traces/pages/shipment/views/edit/pin_location_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/features/shipment/widgets/custom_text_field.dart';
+import 'package:traces/features/shipment/widgets/custom_elevated_button.dart';
 
 class EditShippingInformationView extends StatelessWidget {
   const EditShippingInformationView({super.key});
@@ -442,16 +443,13 @@ class EditShippingInformationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ModalBottomSheet(
-      //background: Color(0xFF121212),
       showCloseButton: false,
-
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 21.0, vertical: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            /// **Title + Actions**
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -486,8 +484,7 @@ class EditShippingInformationView extends StatelessWidget {
             SizedBox(height: 20),
 
             /// **Button pinned at the bottom**
-            _buildElevatedButton(
-              context,
+            CustomElevatedButton(
               text: "Locate Address",
               onPressed: () {
                 final modal =
@@ -496,38 +493,6 @@ class EditShippingInformationView extends StatelessWidget {
               },
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  /// **Reusable TextField Widget**
-
-  /// **Reusable Button**
-  Widget _buildElevatedButton(
-    BuildContext context, {
-    required String text,
-    required VoidCallback onPressed,
-  }) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF0A84FF),
-          padding: EdgeInsets.symmetric(vertical: 14.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14.0),
-          ),
-        ),
-        onPressed: onPressed,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-            fontFamily: "SF Pro Text",
-          ),
         ),
       ),
     );
