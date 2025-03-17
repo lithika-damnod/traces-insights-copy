@@ -20,10 +20,10 @@ class BusinessListTile extends StatelessWidget {
     required this.title,
     this.onTap,
     this.trailingIcon = CupertinoIcons.chevron_forward,
-    this.iconColor = const Color(0xFF2692FE),
-    this.trailingIconColor = const Color(0xFF69696C),
+    this.iconColor = const Color.fromRGBO(10, 132, 255, 1),
+    this.trailingIconColor = const Color.fromRGBO(105, 105, 108, 1),
     this.iconSize = 24,
-    this.trailingIconSize = 18,
+    this.trailingIconSize = 20,
   }) : assert(icon != null || svgPath != null,
             "Either an icon or svgPath must be provided.");
 
@@ -54,8 +54,8 @@ class BusinessListTile extends StatelessWidget {
                     title,
                     style: TextStyle(
                       color: iconColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 19,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ),
@@ -67,9 +67,9 @@ class BusinessListTile extends StatelessWidget {
           ),
         ),
         Divider(
-          color: Colors.grey[700],
+          color: Color.fromRGBO(84, 84, 88, 0.65),
           thickness: 0.25,
-          indent: 16,
+          indent: 24,
         ),
       ],
     );
