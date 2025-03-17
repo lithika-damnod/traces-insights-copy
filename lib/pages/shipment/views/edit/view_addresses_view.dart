@@ -6,8 +6,20 @@ import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/features/shipment/widgets/circular_icon_button.dart';
 import 'package:traces/features/shipment/widgets/custom_elevated_button.dart';
 
-class ViewAddressesView extends StatelessWidget {
+class ViewAddressesView extends StatefulWidget {
   const ViewAddressesView({super.key});
+
+  @override
+  State<ViewAddressesView> createState() => _ViewAddressesViewState();
+}
+
+class _ViewAddressesViewState extends State<ViewAddressesView> {
+  int selectedAddressIndex = 0;
+  final List<String> addresses = [
+    "No. 25, Dambulla Road, Kurunegala, North Western 60000, Sri Lanka",
+    "75/1, Colombo Road, Kurunegala, North Western 60000, Sri Lanka",
+    "Malpitiya Junction, Kurunegala, North Western 60000, Sri Lanka",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +58,11 @@ class ViewAddressesView extends StatelessWidget {
               const SizedBox(height: 8.0),
               Text(
                 "Here are your saved addresses that are eligible for deliveries. Only locations within the service area will be displayed.",
-                style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                style: TextStyle(
+                    fontSize: 15.3,
+                    color: Color.fromRGBO(255, 255, 255, 0.6),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "SF Pro Text"),
               ),
               const SizedBox(height: 10.0),
               ElevatedButton(
@@ -67,73 +83,70 @@ class ViewAddressesView extends StatelessWidget {
                         fontFamily: "SF Pro Text",
                       ),
                     ),
-                    SizedBox(width: 20.0),
-                    Icon(Icons.add, size: 18.0),
+                    SizedBox(width: 164.0),
+                    Icon(
+                      CupertinoIcons.add,
+                      size: 20.0,
+                      color: Color(0xFF0A84FF),
+                    ),
                   ],
                 ),
               ),
+              SizedBox(height: 20.0),
+              Text(
+                "Saved Addresses Within Service Area",
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                  color: Color.fromRGBO(217, 217, 217, 0.5),
+                  fontFamily: "SF Pro Text",
+                ),
+              ),
               const SizedBox(height: 12.0),
-              Column(
-                children: [
-                  _addressTile(
-                      "No. 25, Dambulla Road, Kurunegala, North Western 60000, Sri Lanka"),
-                  _addressTile(
-                      "75/1, Colombo Road, Kurunegala, North Western 60000, Sri Lanka"),
-                  _addressTile(
-                      "Malpitiya Junction, Kurunegala, North Western 60000, Sri Lanka"),
-                ],
+              Container(
+                decoration: BoxDecoration(
+                  color: Color(0xFF1C1C1E),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Column(
+                  children: List.generate(addresses.length, (index) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            addresses[index],
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          trailing: Icon(
+                            CupertinoIcons.checkmark,
+                            color: selectedAddressIndex == index
+                                ? Color(0xFF0A84FF)
+                                : Colors.transparent,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedAddressIndex = index;
+                            });
+                          },
+                        ),
+                        Divider(color: Colors.grey[700], height: 1),
+                      ],
+                    );
+                  }),
+                ),
               ),
               const SizedBox(height: 30.0),
               CustomElevatedButton(
                 text: "Save Changes",
                 onPressed: () {},
               ),
-              // SizedBox(
-              //   width: double.infinity,
-              //   child: ElevatedButton(
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: Colors.blue,
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(8.0),
-              //       ),
-              //       padding: EdgeInsets.symmetric(vertical: 14.0),
-              //     ),
-              //     onPressed: () {},
-              //     child: Text(
-              //       "Save Changes",
-              //       style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
       ],
-    );
-  }
-
-  Widget _addressTile(String address) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0),
-      child: Container(
-        padding: EdgeInsets.all(12.0),
-        decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                address,
-                style: TextStyle(color: Colors.white, fontSize: 14.0),
-              ),
-            ),
-            Icon(CupertinoIcons.checkmark, color: Color(0xFF0A84FF)),
-            const SizedBox(width: 10.0),
-          ],
-        ),
-      ),
     );
   }
 }
