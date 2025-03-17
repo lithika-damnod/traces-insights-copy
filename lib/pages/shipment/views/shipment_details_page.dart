@@ -5,7 +5,9 @@ import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/shared/widgets/order_confirmation_view.dart';
 
 class ShipmentDetailsPage extends StatefulWidget {
-  const ShipmentDetailsPage({super.key});
+  final String orderId;
+  const ShipmentDetailsPage({ required this.orderId,super.key});
+
 
   @override
   State<ShipmentDetailsPage> createState() => _ShipmentDetailsPageState();
@@ -14,13 +16,15 @@ class ShipmentDetailsPage extends StatefulWidget {
 class _ShipmentDetailsPageState extends State<ShipmentDetailsPage> {
   @override
   Widget build(BuildContext context) {
+
+
     // TODO: Start replacing content from here
     return Scaffold(
       appBar: CupertinoNavigationBar(
         padding: EdgeInsetsDirectional.all(0.0),
         backgroundColor: Colors.black,
         middle: Text(
-          "Shipment Details",
+          " #${widget.orderId}",
           style: TextStyle(
             color: Colors.white,
             fontSize: 18.0,
@@ -56,20 +60,41 @@ class _ShipmentDetailsPageState extends State<ShipmentDetailsPage> {
       backgroundColor: Colors.black,
       body: Container(
         color: Colors.black,
-        child: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => ModalBottomSheet(
-                  showCloseButton: true,
-                  child: OrderConfirmationView(),
-                ),
-              );
-            },
-            child: Text("Receive Order Confirmation (Test)"),
-          ),
+        child: Column(
+
+          children: [Expanded(
+            child: ListView(
+
+              children: [
+
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        child: Icon(Icons.flag,
+                        color: Colors.yellow,size: 20,),
+                        decoration: BoxDecoration(
+                          color:Colors.yellow.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      SizedBox(
+                          width: 10,
+                          height: 0,
+                      ),
+
+                      Text("IN TRANSIT"),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
+          ],
+
         ),
+
       ),
     );
   }
