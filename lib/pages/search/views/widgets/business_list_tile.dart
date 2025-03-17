@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BusinessListTile extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
+  final String? svgPath;
   final String title;
   final VoidCallback? onTap;
-  final IconData trailingIcon;
+  final IconData? trailingIcon;
   final Color iconColor;
   final Color trailingIconColor;
   final double iconSize;
@@ -13,7 +15,8 @@ class BusinessListTile extends StatelessWidget {
 
   const BusinessListTile({
     super.key,
-    required this.icon,
+    this.icon,
+    this.svgPath,
     required this.title,
     this.onTap,
     this.trailingIcon = CupertinoIcons.chevron_forward,
@@ -21,7 +24,8 @@ class BusinessListTile extends StatelessWidget {
     this.trailingIconColor = const Color(0xFF69696C),
     this.iconSize = 24,
     this.trailingIconSize = 18,
-  });
+  }) : assert(icon != null || svgPath != null,
+            "Either an icon or svgPath must be provided.");
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +39,16 @@ class BusinessListTile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 25),
             child: Row(
               children: [
-                Icon(icon, color: iconColor, size: iconSize),
-                SizedBox(width: 14),
+                if (svgPath != null)
+                  SvgPicture.asset(
+                    svgPath!,
+                    width: iconSize,
+                    height: iconSize,
+                    colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+                  )
+                else if (icon != null)
+                  Icon(icon, color: iconColor, size: iconSize),
+                const SizedBox(width: 14),
                 Expanded(
                   child: Text(
                     title,
@@ -47,8 +59,9 @@ class BusinessListTile extends StatelessWidget {
                     ),
                   ),
                 ),
-                Icon(trailingIcon,
-                    color: trailingIconColor, size: trailingIconSize),
+                if (trailingIcon != null)
+                  Icon(trailingIcon,
+                      color: trailingIconColor, size: trailingIconSize),
               ],
             ),
           ),

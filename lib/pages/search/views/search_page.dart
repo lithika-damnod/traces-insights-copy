@@ -94,7 +94,7 @@ class _SearchPageState extends State<SearchPage> {
                     child: const Text(
                       'Cancel',
                       style: TextStyle(
-                        color: Color(0xFF0A84FF),
+                        color: Color.fromRGBO(10, 132, 255, 1),
                         fontSize: 17,
                         fontWeight: FontWeight.w400,
                         height: 1.29,
@@ -121,7 +121,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
             if (!_isSearching) ...[
               BusinessListTile(
-                icon: CupertinoIcons.building_2_fill,
+                svgPath: "assets/icons/building.2.svg",
                 title: "Businesses",
                 onTap: () => _showCategoryResults("Businesses"),
               ),
@@ -131,7 +131,7 @@ class _SearchPageState extends State<SearchPage> {
                 onTap: () => _showCategoryResults("Logistics"),
               ),
               BusinessListTile(
-                icon: CupertinoIcons.arrow_2_circlepath,
+                svgPath: "assets/icons/arrow.trianglehead.counterclockwise.svg",
                 title: "Returns",
                 onTap: () => _showCategoryResults("Returns"),
                 trailingIcon: CupertinoIcons.line_horizontal_3_decrease,
