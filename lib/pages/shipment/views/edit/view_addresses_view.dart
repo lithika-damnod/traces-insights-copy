@@ -15,6 +15,7 @@ class ViewAddressesView extends StatefulWidget {
 
 class _ViewAddressesViewState extends State<ViewAddressesView> {
   int? selectedAddressIndex; // No address selected initially
+  bool isAddressSaved = false; // Tracks if address is saved
   final List<String> addresses = [
     "No. 25, Dambulla Road, Kurunegala, North Western 60000, Sri Lanka",
     "75/1, Colombo Road, Kurunegala, North Western 60000, Sri Lanka",
@@ -64,7 +65,7 @@ class _ViewAddressesViewState extends State<ViewAddressesView> {
                     fontWeight: FontWeight.w400,
                     fontFamily: "SF Pro Text"),
               ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 25.0),
               ElevatedButton(
                 onPressed: () {
                   final modal =
@@ -92,56 +93,66 @@ class _ViewAddressesViewState extends State<ViewAddressesView> {
                   ],
                 ),
               ),
-              Text(
-                "Saved Addresses Within Service Area",
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                  color: Color.fromRGBO(217, 217, 217, 0.5),
-                  fontFamily: "SF Pro Text",
+              SizedBox(height: 20.0),
+              if (!isAddressSaved) ...[
+                Text(
+                  "Saved Addresses Within Service Area",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                    color: Color.fromRGBO(217, 217, 217, 0.5),
+                    fontFamily: "SF Pro Text",
+                  ),
                 ),
-              ),
-              const SizedBox(height: 12.0),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFF1C1C1E),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Column(
-                  children: List.generate(addresses.length, (index) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                            addresses[index],
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.w400),
+                const SizedBox(height: 12.0),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1C1C1E),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Column(
+                    children: List.generate(addresses.length, (index) {
+                      return Column(
+                        children: [
+                          ListTile(
+                            title: Text(
+                              addresses[index],
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            trailing: selectedAddressIndex == index
+                                ? Icon(CupertinoIcons.checkmark,
+                                    color: Color(0xFF0A84FF))
+                                : SizedBox(
+                                    width:
+                                        24), // Ensure space remains even if no checkmark
+                            onTap: () {
+                              setState(() {
+                                selectedAddressIndex = index;
+                              });
+                            },
                           ),
-                          trailing: selectedAddressIndex == index
-                              ? Icon(CupertinoIcons.checkmark,
-                                  color: Color(0xFF0A84FF))
-                              : SizedBox(
-                                  width:
-                                      24), // Ensure space remains even if no checkmark
-                          onTap: () {
-                            setState(() {
-                              selectedAddressIndex = index;
-                            });
-                          },
-                        ),
-                        if (index < addresses.length - 1)
-                          Divider(color: Colors.grey[700], height: 1),
-                      ],
-                    );
-                  }),
+                          if (index < addresses.length - 1)
+                            Divider(color: Colors.grey[700], height: 1),
+                        ],
+                      );
+                    }),
+                  ),
                 ),
-              ),
+              ],
               const SizedBox(height: 30.0),
               CustomElevatedButton(
                 text: "Save Changes",
-                onPressed: selectedAddressIndex == null ? null : () {},
+                onPressed: selectedAddressIndex == null
+                    ? null
+                    : () {
+                        setState(() {
+                          isAddressSaved = true; // Hide addresses after saving
+                          selectedAddressIndex = null; // Reset selection
+                        });
+                      },
               ),
             ],
           ),
