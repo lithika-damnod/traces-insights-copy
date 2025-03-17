@@ -14,7 +14,7 @@ class ViewAddressesView extends StatefulWidget {
 }
 
 class _ViewAddressesViewState extends State<ViewAddressesView> {
-  int selectedAddressIndex = 0;
+  int? selectedAddressIndex; // No address selected initially
   final List<String> addresses = [
     "No. 25, Dambulla Road, Kurunegala, North Western 60000, Sri Lanka",
     "75/1, Colombo Road, Kurunegala, North Western 60000, Sri Lanka",
@@ -92,7 +92,6 @@ class _ViewAddressesViewState extends State<ViewAddressesView> {
                   ],
                 ),
               ),
-              SizedBox(height: 20.0),
               Text(
                 "Saved Addresses Within Service Area",
                 style: TextStyle(
@@ -120,19 +119,20 @@ class _ViewAddressesViewState extends State<ViewAddressesView> {
                                 fontSize: 17.0,
                                 fontWeight: FontWeight.w400),
                           ),
-                          trailing: Icon(
-                            CupertinoIcons.checkmark,
-                            color: selectedAddressIndex == index
-                                ? Color(0xFF0A84FF)
-                                : Colors.transparent,
-                          ),
+                          trailing: selectedAddressIndex == index
+                              ? Icon(CupertinoIcons.checkmark,
+                                  color: Color(0xFF0A84FF))
+                              : SizedBox(
+                                  width:
+                                      24), // Ensure space remains even if no checkmark
                           onTap: () {
                             setState(() {
                               selectedAddressIndex = index;
                             });
                           },
                         ),
-                        Divider(color: Colors.grey[700], height: 1),
+                        if (index < addresses.length - 1)
+                          Divider(color: Colors.grey[700], height: 1),
                       ],
                     );
                   }),
@@ -141,7 +141,7 @@ class _ViewAddressesViewState extends State<ViewAddressesView> {
               const SizedBox(height: 30.0),
               CustomElevatedButton(
                 text: "Save Changes",
-                onPressed: () {},
+                onPressed: selectedAddressIndex == null ? null : () {},
               ),
             ],
           ),
