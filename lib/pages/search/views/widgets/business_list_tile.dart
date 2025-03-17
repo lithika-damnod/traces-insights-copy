@@ -22,7 +22,7 @@ class BusinessListTile extends StatelessWidget {
     this.trailingIcon = CupertinoIcons.chevron_forward,
     this.iconColor = const Color.fromRGBO(10, 132, 255, 1),
     this.trailingIconColor = const Color.fromRGBO(105, 105, 108, 1),
-    this.iconSize = 24,
+    this.iconSize = 22,
     this.trailingIconSize = 20,
   }) : assert(icon != null || svgPath != null,
             "Either an icon or svgPath must be provided.");
@@ -36,19 +36,25 @@ class BusinessListTile extends StatelessWidget {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 25),
+            padding:
+                const EdgeInsets.only(left: 25, right: 18, top: 2, bottom: 2),
             child: Row(
               children: [
-                if (svgPath != null)
-                  SvgPicture.asset(
-                    svgPath!,
-                    width: iconSize,
-                    height: iconSize,
-                    colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-                  )
-                else if (icon != null)
-                  Icon(icon, color: iconColor, size: iconSize),
-                const SizedBox(width: 14),
+                Container(
+                  width: iconSize,
+                  height: iconSize,
+                  alignment: Alignment.center,
+                  child: svgPath != null
+                      ? SvgPicture.asset(
+                          svgPath!,
+                          width: iconSize,
+                          height: iconSize,
+                          colorFilter:
+                              ColorFilter.mode(iconColor, BlendMode.srcIn),
+                        )
+                      : Icon(icon, color: iconColor, size: iconSize),
+                ),
+                const SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     title,
@@ -67,7 +73,7 @@ class BusinessListTile extends StatelessWidget {
           ),
         ),
         Divider(
-          color: Color.fromRGBO(84, 84, 88, 0.65),
+          color: const Color.fromRGBO(84, 84, 88, 0.65),
           thickness: 0.25,
           indent: 24,
         ),
