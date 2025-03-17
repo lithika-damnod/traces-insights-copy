@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:traces/pages/home/views/add_shipment/add_shipment_scan_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
+import 'package:flutter/cupertino.dart';
 
 class AddShipmentManualView extends StatefulWidget {
   const AddShipmentManualView({super.key});
@@ -28,43 +29,44 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
         mainAxisSize: MainAxisSize.min,
         children: [
           // Title Row with QR Code Icon
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Link New Shipment",
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-              IconButton(
-                icon: Container(
-                  width: 43.76,
-                  height: 43.76,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey[900],
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Link New Shipment",
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
                   ),
-                  child: const Icon(Icons.qr_code,
-                      color: Colors.blueAccent, size: 23.76),
                 ),
-                onPressed: () {
-                  final modal =
-                      context.findAncestorStateOfType<ModalBottomSheetState>();
-                  modal?.navigateTo(AddShipmentScanView());
-                },
-              ),
-            ],
+                IconButton(
+                  icon: Container(
+                    width: 43.76,
+                    height: 43.76,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.grey[900],
+                    ),
+                    child: const Icon(CupertinoIcons.qrcode,
+                        color: Colors.blueAccent, size: 23.76),
+                  ),
+                  onPressed: () {
+                    final modal = context
+                        .findAncestorStateOfType<ModalBottomSheetState>();
+                    modal?.navigateTo(AddShipmentScanView());
+                  },
+                ),
+              ],
+            ),
           ),
-
-          SizedBox(height: 8.0),
 
           Text(
             "Provide your shipment details to link it to your account. You can enter the information manually or quickly scan the QR code for faster input.",
-            style: theme.textTheme.bodySmall?.copyWith(
-              fontSize: 15.299999237060547,
+            style: TextStyle(
+              fontSize: 15.3,
               color: Color.fromRGBO(255, 255, 255, 0.6),
             ),
           ),
@@ -93,12 +95,16 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
                 children: [
                   if (_isTrackingEntered)
                     const Padding(
-                      padding: EdgeInsets.only(right: 4.0),
-                      child: Icon(Icons.check_circle,
-                          color: Colors.green, size: 22),
+                      padding: EdgeInsets.only(right: 0),
+                      child: Icon(CupertinoIcons.check_mark,
+                          color: Color.fromRGBO(51, 199, 90, 1), size: 20),
                     ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: Colors.grey),
+                    icon: const Icon(
+                      CupertinoIcons.xmark_circle_fill,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
                     onPressed: () {
                       _trackingController.clear();
                       _onTrackingChanged("");
@@ -109,7 +115,7 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
             ),
           ),
 
-          SizedBox(height: 16.0),
+          SizedBox(height: 14.0),
 
           // Add Shipment Button (Disabled when empty)
           SizedBox(
