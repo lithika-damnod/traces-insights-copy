@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:traces/pages/search/views/details/details_view.dart';
+import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/pages/search/views/widgets/business_list_tile.dart';
 import 'package:traces/pages/search/views/widgets/business_card.dart';
 
@@ -15,7 +17,6 @@ class _SearchPageState extends State<SearchPage> {
   bool _isSearching = false;
   bool _showBusinessCards = false;
 
-  // Sample Business list
   final List<Map<String, dynamic>> _businesses = [
     {
       "logoUrl": "assets/icons/amazon.png",
@@ -48,7 +49,6 @@ class _SearchPageState extends State<SearchPage> {
     _filteredBusinesses = _businesses;
   }
 
-  // Handles Search Filtering
   void _filterSearch(String query) {
     setState(() {
       _isSearching = query.isNotEmpty;
@@ -105,7 +105,7 @@ class _SearchPageState extends State<SearchPage> {
                 ],
               ),
             ),
-            if (_isSearching && _filteredBusinesses.isEmpty) ...[
+            if (_isSearching && _filteredBusinesses.isEmpty)
               Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
@@ -119,7 +119,6 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
               ),
-            ],
             if (!_isSearching) ...[
               BusinessListTile(
                 icon: CupertinoIcons.building_2_fill,
@@ -144,7 +143,7 @@ class _SearchPageState extends State<SearchPage> {
                 trailingIcon: CupertinoIcons.line_horizontal_3_decrease,
               ),
             ],
-            if (_showBusinessCards && _filteredBusinesses.isNotEmpty) ...[
+            if (_showBusinessCards && _filteredBusinesses.isNotEmpty)
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -155,7 +154,15 @@ class _SearchPageState extends State<SearchPage> {
                       return Column(
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                backgroundColor: Colors.transparent,
+                                builder: (context) => ModalBottomSheet(
+                                  child: DetailsView(),
+                                ),
+                              );
+                            },
                             child: BusinessCard(
                               logoUrl: business["logoUrl"],
                               businessName: business["businessName"],
@@ -171,14 +178,12 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
               ),
-            ],
           ],
         ),
       ),
     );
   }
 
-  // Search Bar Widget
   Widget buildSearchBar() {
     return TextField(
       controller: _searchController,
