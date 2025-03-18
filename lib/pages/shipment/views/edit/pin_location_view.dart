@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,6 +8,7 @@ import 'package:traces/pages/shipment/views/edit/view_addresses_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/features/shipment/widgets/custom_elevated_button.dart';
 import 'package:traces/features/shipment/widgets/circular_icon_button.dart';
+import 'package:traces/features/shipment/widgets/dashed_octagon_painter.dart';
 
 class PinLocationView extends StatefulWidget {
   const PinLocationView({super.key});
@@ -17,6 +20,7 @@ class PinLocationView extends StatefulWidget {
 class _PinLocationViewState extends State<PinLocationView> {
   double _pinTop = 200; // Initial position inside the map
   double _pinLeft = 160; // Centered horizontally
+  // final double hexagonRadius = 140;
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +121,7 @@ class _PinLocationViewState extends State<PinLocationView> {
 
           SizedBox(height: 17.0),
 
-          /// **Scrollable Map Preview with Draggable Pin**
+          /// **Scrollable Map Preview with Draggable Pin and Area Selection Overlay**
           Expanded(
             child: SingleChildScrollView(
               child: Container(
@@ -137,6 +141,19 @@ class _PinLocationViewState extends State<PinLocationView> {
                         width: double.infinity,
                         height: 707,
                         fit: BoxFit.cover,
+                      ),
+                    ),
+
+                    /// **Area Selection Overlay**
+                    Positioned(
+                      top: _pinTop - 130, // Adjust position to match pin
+                      left: _pinLeft - 140,
+                      child: SizedBox(
+                        width: 280,
+                        height: 280,
+                        child: CustomPaint(
+                          painter: DashedOctagonPainter(),
+                        ),
                       ),
                     ),
 
@@ -201,3 +218,5 @@ class _PinLocationViewState extends State<PinLocationView> {
     );
   }
 }
+
+/// **Painter for Darkened Background Outside the Hexagon**
