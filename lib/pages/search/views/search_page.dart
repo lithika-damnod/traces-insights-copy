@@ -180,82 +180,106 @@ class _SearchPageState extends State<SearchPage> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ListView(
-                    children: [
-                      if (_filteredBusinesses.isNotEmpty) ...[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: Text(
-                            "Businesses (${_filteredBusinesses.length})",
-                            style: const TextStyle(
-                              color: Colors.white70,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
+                  child: _filteredBusinesses.isEmpty &&
+                          _filteredLogistics.isEmpty
+                      ? Center(
+                          child: Opacity(
+                            opacity: 0.50,
+                            child: Text(
+                              'No Results Found',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'SF Pro Text',
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: -0.41,
+                              ),
                             ),
                           ),
+                        )
+                      : ListView(
+                          children: [
+                            if (_filteredBusinesses.isNotEmpty) ...[
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  "Businesses (${_filteredBusinesses.length})",
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              ..._filteredBusinesses.map((business) {
+                                return GestureDetector(
+                                  onTap: () => _showBusinessDetails(business),
+                                  child: BusinessCard(
+                                    logoUrl: business["logoUrl"],
+                                    businessName: business["businessName"],
+                                    country: business["country"],
+                                    category: business["category"],
+                                    rating: business["rating"],
+                                    showRatingText:
+                                        (business["showRatingText"] as bool?) ??
+                                            true,
+                                    customIcon:
+                                        (business["customIcon"] as IconData?) ??
+                                            CupertinoIcons.star_fill,
+                                    ratingColor:
+                                        (business["ratingColor"] as Color?) ??
+                                            Color.fromRGBO(209, 219, 88, 0.75),
+                                    iconColor:
+                                        (business["iconColor"] as Color?) ??
+                                            Color.fromRGBO(209, 219, 88, 0.75),
+                                  ),
+                                );
+                              }).toList(),
+                            ],
+                            if (_filteredLogistics.isNotEmpty) ...[
+                              SizedBox(height: 16),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  "Logistics (${_filteredLogistics.length})",
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              ..._filteredLogistics.map((logistic) {
+                                return GestureDetector(
+                                  onTap: () => _showBusinessDetails(logistic),
+                                  child: BusinessCard(
+                                    logoUrl: logistic["logoUrl"],
+                                    businessName: logistic["businessName"],
+                                    country: logistic["country"],
+                                    category: logistic["category"],
+                                    rating: logistic["rating"],
+                                    showRatingText:
+                                        (logistic["showRatingText"] as bool?) ??
+                                            true,
+                                    customIcon:
+                                        (logistic["customIcon"] as IconData?) ??
+                                            CupertinoIcons.star_fill,
+                                    ratingColor:
+                                        (logistic["ratingColor"] as Color?) ??
+                                            Color.fromRGBO(209, 219, 88, 0.75),
+                                    iconColor:
+                                        (logistic["iconColor"] as Color?) ??
+                                            Color.fromRGBO(209, 219, 88, 0.75),
+                                    hideCategory:
+                                        logistic["hideCategory"] ?? false,
+                                  ),
+                                );
+                              }).toList(),
+                            ],
+                          ],
                         ),
-                        ..._filteredBusinesses.map((business) {
-                          return GestureDetector(
-                            onTap: () => _showBusinessDetails(business),
-                            child: BusinessCard(
-                              logoUrl: business["logoUrl"],
-                              businessName: business["businessName"],
-                              country: business["country"],
-                              category: business["category"],
-                              rating: business["rating"],
-                              showRatingText:
-                                  (business["showRatingText"] as bool?) ?? true,
-                              customIcon:
-                                  (business["customIcon"] as IconData?) ??
-                                      CupertinoIcons.star_fill,
-                              ratingColor:
-                                  (business["ratingColor"] as Color?) ??
-                                      Color.fromRGBO(209, 219, 88, 0.75),
-                              iconColor: (business["iconColor"] as Color?) ??
-                                  Color.fromRGBO(209, 219, 88, 0.75),
-                            ),
-                          );
-                        }).toList(),
-                      ],
-                      if (_filteredLogistics.isNotEmpty) ...[
-                        SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: Text(
-                            "Logistics (${_filteredLogistics.length})",
-                            style: const TextStyle(
-                              color: Colors.white70,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        ..._filteredLogistics.map((logistic) {
-                          return GestureDetector(
-                            onTap: () => _showBusinessDetails(logistic),
-                            child: BusinessCard(
-                              logoUrl: logistic["logoUrl"],
-                              businessName: logistic["businessName"],
-                              country: logistic["country"],
-                              category: logistic["category"],
-                              rating: logistic["rating"],
-                              showRatingText:
-                                  (logistic["showRatingText"] as bool?) ?? true,
-                              customIcon:
-                                  (logistic["customIcon"] as IconData?) ??
-                                      CupertinoIcons.star_fill,
-                              ratingColor:
-                                  (logistic["ratingColor"] as Color?) ??
-                                      Color.fromRGBO(209, 219, 88, 0.75),
-                              iconColor: (logistic["iconColor"] as Color?) ??
-                                  Color.fromRGBO(209, 219, 88, 0.75),
-                              hideCategory: logistic["hideCategory"] ?? false,
-                            ),
-                          );
-                        }).toList(),
-                      ],
-                    ],
-                  ),
                 ),
               ),
           ],
