@@ -10,6 +10,8 @@ import 'package:traces/features/shipment/widgets/custom_elevated_button.dart';
 import 'package:traces/features/shipment/widgets/circular_icon_button.dart';
 import 'package:traces/features/shipment/widgets/dashed_octagon_painter.dart';
 
+import '../../../../features/shipment/widgets/map_control_button.dart';
+
 class PinLocationView extends StatefulWidget {
   const PinLocationView({super.key});
 
@@ -196,6 +198,16 @@ class _PinLocationViewState extends State<PinLocationView> {
                           });
                         },
                       ),
+                    ),
+
+                    /// **Map Control Buttons**
+                    MapControlButtons(
+                      onPinPress: () {
+                        print("Pin button pressed!");
+                      },
+                      onLocatePress: () {
+                        print("Locate button pressed!");
+                      },
                     ),
                   ],
                 ),
