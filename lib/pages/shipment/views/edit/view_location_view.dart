@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:traces/pages/shipment/views/edit/view_shipping_info_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/features/shipment/widgets/circular_icon_button.dart';
@@ -26,17 +27,32 @@ class ViewLocationView extends StatelessWidget {
                   ),
                   color: Colors.black12,
                 ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    topRight: Radius.circular(10.0),
-                  ),
-                  child: Image.asset(
-                    'assets/icons/map_expanded.png', // Replace with the actual map view
-                    width: double.infinity,
-                    height: 320,
-                    fit: BoxFit.cover,
-                  ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    /// **Map Image**
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0),
+                      ),
+                      child: Image.asset(
+                        'assets/icons/map_expanded.png', // Replace with the actual map view
+                        width: double.infinity,
+                        height: 320,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+
+                    /// **Pin Icon Overlay**
+                    Positioned(
+                      child: SvgPicture.asset(
+                        'assets/icons/pin.svg', // Replace with actual pin asset
+                        width: 50,
+                        height: 59,
+                      ),
+                    ),
+                  ],
                 ),
               ),
 

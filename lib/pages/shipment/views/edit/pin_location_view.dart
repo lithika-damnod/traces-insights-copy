@@ -1,52 +1,22 @@
-// import 'package:flutter/material.dart';
-// import 'package:traces/pages/shipment/views/edit/edit_shipping_info_view.dart';
-// import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
-// import 'package:traces/features/shipment/widgets/custom_elevated_button.dart';
-// import 'package:traces/features/shipment/widgets/circular_icon_button.dart';
-//
-// class PinLocationView extends StatelessWidget {
-//   const PinLocationView({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisSize: MainAxisSize.min,
-//       children: [
-//         Padding(
-//           padding: const EdgeInsets.only(top: 26.0),
-//           child: Column(
-//             children: [
-//               Text(
-//                 "Pin Address Location (Map)",
-//                 style: TextStyle(fontSize: 18.0),
-//               ),
-//               SizedBox(height: 10.0),
-//               ElevatedButton(
-//                 onPressed: () {
-//                   final modal =
-//                       context.findAncestorStateOfType<ModalBottomSheetState>();
-//                   modal?.navigateTo(EditShippingInformationView());
-//                 },
-//                 child: Text("Back"),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:traces/pages/shipment/views/edit/edit_shipping_info_view.dart';
 import 'package:traces/pages/shipment/views/edit/view_addresses_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/features/shipment/widgets/custom_elevated_button.dart';
 import 'package:traces/features/shipment/widgets/circular_icon_button.dart';
 
-class PinLocationView extends StatelessWidget {
+class PinLocationView extends StatefulWidget {
   const PinLocationView({super.key});
+
+  @override
+  _PinLocationViewState createState() => _PinLocationViewState();
+}
+
+class _PinLocationViewState extends State<PinLocationView> {
+  double _pinTop = 200; // Initial position inside the map
+  double _pinLeft = 160; // Centered horizontally
 
   @override
   Widget build(BuildContext context) {
@@ -102,31 +72,129 @@ class PinLocationView extends StatelessWidget {
           SizedBox(height: 20.0),
 
           /// **Search Bar**
-
-          SizedBox(height: 17.0),
-
-          /// **Map Preview**
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Image.asset(
-              'assets/icons/map_pin.png', // Replace with actual map asset
-              width: double.infinity,
-              height: 500,
-              fit: BoxFit.cover,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: TextField(
+              cursorColor: Colors.white70,
+              decoration: InputDecoration(
+                isCollapsed: true,
+                filled: true,
+                fillColor: const Color.fromRGBO(118, 118, 128, 0.24),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 6.5),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+                hintText: "Search Location",
+                hintStyle: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 17,
+                  letterSpacing: -0.408,
+                  color: Color.fromRGBO(235, 235, 245, 0.60),
+                ),
+                prefixIcon: const Padding(
+                  padding: EdgeInsets.only(left: 12.0, right: 5.0),
+                  child: Icon(
+                    CupertinoIcons.search,
+                    color: Color.fromRGBO(235, 235, 245, 0.60),
+                    size: 20,
+                  ),
+                ),
+                prefixIconConstraints: const BoxConstraints(
+                  minWidth: 0,
+                  minHeight: 0,
+                ),
+              ),
+              style: const TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 17,
+                letterSpacing: -0.408,
+                color: Colors.white,
+              ),
             ),
           ),
 
-          /// **Save Changes Button**
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: CustomElevatedButton(
-              text: "Save Changes",
-              onPressed: () {
-                final modal =
-                    context.findAncestorStateOfType<ModalBottomSheetState>();
-                modal?.navigateTo(ViewAddressesView());
-              },
+          SizedBox(height: 17.0),
+
+          /// **Scrollable Map Preview with Draggable Pin**
+          Expanded(
+            child: SingleChildScrollView(
+              child: Container(
+                width: double.infinity,
+                height: 707,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.black12, // Optional background color
+                ),
+                child: Stack(
+                  children: [
+                    /// **Map Image**
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.asset(
+                        'assets/icons/map_pin.png', // Replace with actual map asset
+                        width: double.infinity,
+                        height: 707,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+
+                    /// **Draggable Pin**
+                    Positioned(
+                      top: _pinTop,
+                      left: _pinLeft,
+                      child: Draggable(
+                        feedback: SizedBox(
+                          child: SvgPicture.asset(
+                            'assets/icons/pin.svg', // Replace with your actual path
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        childWhenDragging:
+                            Container(), // Hide the original pin while dragging
+                        child: SizedBox(
+                          child: SvgPicture.asset(
+                            'assets/icons/pin.svg', // Replace with your actual path
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        onDragEnd: (details) {
+                          final RenderBox containerBox =
+                              context.findRenderObject() as RenderBox;
+                          final Offset containerOffset =
+                              containerBox.localToGlobal(Offset.zero);
+
+                          // Calculate the new position relative to the container
+                          double newTop =
+                              details.offset.dy - containerOffset.dy;
+                          double newLeft =
+                              details.offset.dx - containerOffset.dx;
+
+                          // Clamp the new position to stay within the container bounds
+                          setState(() {
+                            _pinTop = newTop.clamp(0.0, 500);
+                            _pinLeft = newLeft.clamp(
+                                0.0, MediaQuery.of(context).size.width);
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
+          ),
+          SizedBox(height: 30.0),
+
+          /// **Save Changes Button**
+          CustomElevatedButton(
+            text: "Save Changes",
+            onPressed: () {
+              final modal =
+                  context.findAncestorStateOfType<ModalBottomSheetState>();
+              modal?.navigateTo(ViewAddressesView());
+            },
           ),
         ],
       ),

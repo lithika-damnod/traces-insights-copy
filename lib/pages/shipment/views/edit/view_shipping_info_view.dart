@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:traces/pages/shipment/views/edit/edit_shipping_info_view.dart';
 import 'package:traces/pages/shipment/views/edit/view_location_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
@@ -69,12 +70,29 @@ class ViewShippingInformationView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(14.0),
                       color: Colors.black12,
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(14.0),
-                      child: Image.asset(
-                        'assets/icons/map_image.png', // Replace with the actual asset path
-                        fit: BoxFit.cover,
-                      ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        /// **Map Image**
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(14.0),
+                          child: Image.asset(
+                            'assets/icons/map_image.png', // Replace with the actual asset path
+                            fit: BoxFit.cover,
+                            width: 83,
+                            height: 83,
+                          ),
+                        ),
+
+                        /// **Pin Icon Overlay**
+                        Positioned(
+                          child: SvgPicture.asset(
+                            'assets/icons/pin.svg', // Replace with actual pin asset
+                            width: 25,
+                            height: 34,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
