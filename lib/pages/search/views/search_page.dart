@@ -193,7 +193,7 @@ class _SearchPageState extends State<SearchPage> {
                                 'No Results Found',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize: 17,
                                   fontFamily: 'SF Pro Text',
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: -0.41,
