@@ -152,7 +152,13 @@ class DetailsView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 20),
+                  Divider(
+                    height: 0,
+                    thickness: 0.5,
+                    color: Color.fromRGBO(84, 84, 88, 0.65),
+                  ),
+                  const SizedBox(height: 20),
                   SizedBox(
                     width: 389,
                     child: Row(
