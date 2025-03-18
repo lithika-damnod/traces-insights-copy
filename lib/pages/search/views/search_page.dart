@@ -25,7 +25,7 @@ class _SearchPageState extends State<SearchPage> {
       "country": "Sri Lanka",
       "category": "Ecommerce",
       "rating": 4.3,
-      "iconColor": Color.fromRGBO(105, 105, 108, 1), // ✅ Custom icon color
+      "iconColor": Color.fromRGBO(105, 105, 108, 1),
       "showRatingText": false,
       "customIcon": CupertinoIcons.star_slash,
     },
@@ -42,8 +42,8 @@ class _SearchPageState extends State<SearchPage> {
       "country": "Sri Lanka",
       "category": "Ecommerce",
       "rating": 4.3,
-      "ratingColor": Color.fromRGBO(230, 123, 123, 0.75), // ✅ Custom text color
-      "iconColor": Color.fromRGBO(230, 123, 123, 0.75), // ✅ Custom icon color
+      "ratingColor": Color.fromRGBO(230, 123, 123, 0.75),
+      "iconColor": Color.fromRGBO(230, 123, 123, 0.75),
     },
   ];
 
@@ -54,6 +54,7 @@ class _SearchPageState extends State<SearchPage> {
       "country": "Sri Lanka",
       "category": "Ecommerce",
       "rating": 4.3,
+      "hideCategory": true,
     },
     {
       "logoUrl": "assets/icons/amazon.png",
@@ -61,6 +62,7 @@ class _SearchPageState extends State<SearchPage> {
       "country": "Sri Lanka",
       "category": "Ecommerce",
       "rating": 4.3,
+      "hideCategory": true,
     },
   ];
 
@@ -104,7 +106,7 @@ class _SearchPageState extends State<SearchPage> {
       context: context,
       backgroundColor: Colors.transparent,
       builder: (context) => ModalBottomSheet(
-        child: DetailsView(), // ✅ Opens DetailsView on tap
+        child: DetailsView(),
       ),
     );
   }
@@ -117,7 +119,6 @@ class _SearchPageState extends State<SearchPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// 🔍 Search Bar
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
@@ -151,8 +152,6 @@ class _SearchPageState extends State<SearchPage> {
                 ],
               ),
             ),
-
-            /// 📌 **Always Show Categories Section**
             if (!_isSearching) ...[
               BusinessListTile(
                 svgPath: "assets/icons/building.2.svg",
@@ -177,15 +176,12 @@ class _SearchPageState extends State<SearchPage> {
                 trailingIcon: CupertinoIcons.line_horizontal_3_decrease,
               ),
             ],
-
-            /// 📌 **Show Search Results Below Categories**
             if (_showBusinessCards || _showLogisticsCards)
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: ListView(
                     children: [
-                      /// **Businesses Section**
                       if (_filteredBusinesses.isNotEmpty) ...[
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
@@ -208,24 +204,19 @@ class _SearchPageState extends State<SearchPage> {
                               category: business["category"],
                               rating: business["rating"],
                               showRatingText:
-                                  (business["showRatingText"] as bool?) ??
-                                      true, // ✅ Default true
-                              customIcon: (business["customIcon"]
-                                      as IconData?) ??
-                                  CupertinoIcons.star_fill, // ✅ Default icon
-                              ratingColor: (business["ratingColor"]
-                                      as Color?) ??
-                                  Color.fromRGBO(
-                                      209, 219, 88, 0.75), // ✅ Default color
+                                  (business["showRatingText"] as bool?) ?? true,
+                              customIcon:
+                                  (business["customIcon"] as IconData?) ??
+                                      CupertinoIcons.star_fill,
+                              ratingColor:
+                                  (business["ratingColor"] as Color?) ??
+                                      Color.fromRGBO(209, 219, 88, 0.75),
                               iconColor: (business["iconColor"] as Color?) ??
-                                  Color.fromRGBO(
-                                      209, 219, 88, 0.75), // ✅ Default color
+                                  Color.fromRGBO(209, 219, 88, 0.75),
                             ),
                           );
                         }).toList(),
                       ],
-
-                      /// **Logistics Section**
                       if (_filteredLogistics.isNotEmpty) ...[
                         SizedBox(height: 16),
                         Padding(
@@ -249,18 +240,16 @@ class _SearchPageState extends State<SearchPage> {
                               category: logistic["category"],
                               rating: logistic["rating"],
                               showRatingText:
-                                  (logistic["showRatingText"] as bool?) ??
-                                      true, // ✅ Default true
-                              customIcon: (logistic["customIcon"]
-                                      as IconData?) ??
-                                  CupertinoIcons.star_fill, // ✅ Default icon
-                              ratingColor: (logistic["ratingColor"]
-                                      as Color?) ??
-                                  Color.fromRGBO(
-                                      209, 219, 88, 0.75), // ✅ Default color
+                                  (logistic["showRatingText"] as bool?) ?? true,
+                              customIcon:
+                                  (logistic["customIcon"] as IconData?) ??
+                                      CupertinoIcons.star_fill,
+                              ratingColor:
+                                  (logistic["ratingColor"] as Color?) ??
+                                      Color.fromRGBO(209, 219, 88, 0.75),
                               iconColor: (logistic["iconColor"] as Color?) ??
-                                  Color.fromRGBO(
-                                      209, 219, 88, 0.75), // ✅ Default color
+                                  Color.fromRGBO(209, 219, 88, 0.75),
+                              hideCategory: logistic["hideCategory"] ?? false,
                             ),
                           );
                         }).toList(),

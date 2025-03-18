@@ -11,8 +11,8 @@ class BusinessCard extends StatelessWidget {
   final IconData customIcon;
   final Color ratingColor;
   final Color iconColor;
+  final bool hideCategory;
 
-  /// ✅ Set default colors here
   const BusinessCard({
     super.key,
     required this.logoUrl,
@@ -20,10 +20,11 @@ class BusinessCard extends StatelessWidget {
     required this.country,
     required this.category,
     required this.rating,
-    this.showRatingText = true, // ✅ Default: Show rating text
-    this.customIcon = CupertinoIcons.star_fill, // ✅ Default: Star icon
-    this.ratingColor = Colors.white, // ✅ Default: White text
-    this.iconColor = Colors.white, // ✅ Default: White icon
+    this.showRatingText = true,
+    this.customIcon = CupertinoIcons.star_fill,
+    this.ratingColor = Colors.white,
+    this.iconColor = Colors.white,
+    this.hideCategory = false,
   });
 
   @override
@@ -36,7 +37,6 @@ class BusinessCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              /// ✅ Left Side: Logo + Business Info
               Row(
                 children: [
                   ClipRRect(
@@ -73,51 +73,51 @@ class BusinessCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 6),
-                          Container(
-                            width: 3,
-                            height: 3,
-                            decoration: const BoxDecoration(
-                              color: Color.fromRGBO(84, 83, 83, 1),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          Opacity(
-                            opacity: 0.50,
-                            child: Text(
-                              category,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
+                          if (!hideCategory) ...[
+                            const SizedBox(width: 6),
+                            Container(
+                              width: 3,
+                              height: 3,
+                              decoration: const BoxDecoration(
+                                color: Color.fromRGBO(84, 83, 83, 1),
+                                shape: BoxShape.circle,
                               ),
                             ),
-                          ),
+                            const SizedBox(width: 6),
+                            Opacity(
+                              opacity: 0.50,
+                              child: Text(
+                                category,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                     ],
                   ),
                 ],
               ),
-
-              /// ✅ Right Side: Icon + Optional Rating Text
               Row(
                 children: [
                   Icon(
-                    customIcon, // ✅ Custom icon dynamically
-                    color: iconColor, // ✅ Custom icon color
+                    customIcon,
+                    color: iconColor,
                     size: 17,
                   ),
                   const SizedBox(width: 4),
-                  showRatingText // ✅ Conditionally show rating text
+                  showRatingText
                       ? Text(
                           '${rating.toStringAsFixed(1)} / 5',
                           style: TextStyle(
                             fontSize: 17,
-                            color: ratingColor, // ✅ Custom rating text color
+                            color: ratingColor,
                           ),
                         )
-                      : const SizedBox(), // ❌ Hide text if false
+                      : const SizedBox(),
                 ],
               ),
             ],
