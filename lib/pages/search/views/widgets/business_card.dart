@@ -17,7 +17,6 @@ class BusinessCard extends StatelessWidget {
     required this.rating,
   });
 
-  // ✅ Common TextStyle
   static const TextStyle commonTextStyle = TextStyle(
     color: Colors.white,
     fontSize: 16,
@@ -26,7 +25,6 @@ class BusinessCard extends StatelessWidget {
     letterSpacing: -0.43,
   );
 
-  // ✅ Build Business Logo
   Widget _buildLogo(String logoUrl) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16.94),
@@ -81,7 +79,7 @@ class BusinessCard extends StatelessWidget {
                             width: 3,
                             height: 3,
                             decoration: const BoxDecoration(
-                              color: Color(0xFF535353),
+                              color: Color.fromRGBO(84, 83, 83, 1),
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -100,7 +98,7 @@ class BusinessCard extends StatelessWidget {
                 children: [
                   const Icon(
                     CupertinoIcons.star_fill,
-                    color: Color(0xBFD0DA57),
+                    color: Color.fromRGBO(209, 219, 88, 0.75),
                     size: 17,
                   ),
                   const SizedBox(width: 4),
@@ -108,7 +106,7 @@ class BusinessCard extends StatelessWidget {
                     '${rating.toStringAsFixed(1)} / 5',
                     style: commonTextStyle.copyWith(
                       fontSize: 17,
-                      color: const Color(0xBFD0DA57),
+                      color: Color.fromRGBO(209, 219, 88, 0.75),
                     ),
                   ),
                 ],
