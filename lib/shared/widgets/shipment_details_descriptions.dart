@@ -26,6 +26,7 @@ late String description;
 late double discriptionFontSize ;
 late  double titleFontSize;
 late double fontOpacity;
+double _iconSize = 20;
 
 
 
@@ -36,8 +37,8 @@ void assignColorAndIcons(String titleSimple){
 
           case "delivered":
             _textColor = Colors.green;
-            icon = Icon(CupertinoIcons.check_mark_circled,
-            color: Colors.green,);
+            icon = Icon(CupertinoIcons.check_mark,
+            color: Colors.green,size: _iconSize,);
             description = "The package was successfully delivered to the recipient's address";
             discriptionFontSize =18;
             titleFontSize =16;
@@ -48,7 +49,7 @@ void assignColorAndIcons(String titleSimple){
           case "out for delivery":
             _textColor = Colors.white;
             icon =Icon(CupertinoIcons.arrow_right,
-            color: Colors.orange,);
+            color: Colors.orange,size: _iconSize,);
             description= "The package is with the delivery driver and on its way to the recipient";
             discriptionFontSize =18;
             titleFontSize =16;
@@ -58,7 +59,7 @@ void assignColorAndIcons(String titleSimple){
 
           case "picked up":
             _textColor = Colors.white;
-            icon = Icon(CupertinoIcons.flag_fill,color: Colors.yellow,);
+            icon = Icon(CupertinoIcons.flag_fill,color: Colors.yellow,size: _iconSize,);
             description = "Pending Customer Clearance in ${widget.pickupLocation}";
             discriptionFontSize =18;
             titleFontSize =16;
@@ -68,7 +69,7 @@ void assignColorAndIcons(String titleSimple){
 
           default:
             _textColor = Colors.white;
-            icon = Icon(CupertinoIcons.arrow_up_left);
+            icon = Icon(CupertinoIcons.arrow_up_left,size: _iconSize,);
             description = widget.address!;
             discriptionFontSize =18;
             titleFontSize =18;
@@ -111,7 +112,7 @@ void assignColorAndIcons(String titleSimple){
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Flexible(
-              flex: 5,
+              flex: 8,
               child: Wrap(
                   children: [
                   Text("$description",style: TextStyle(color: _textColor.withOpacity(  titleSimple !="shipping address"? fontOpacity : 0.7),fontSize: discriptionFontSize)),
@@ -122,7 +123,7 @@ void assignColorAndIcons(String titleSimple){
             flex: 2,
             child: Container(
                 child: Padding(
-                  padding: const EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.all(3.0),
                   child: icon,
                 ),
               decoration: BoxDecoration(
