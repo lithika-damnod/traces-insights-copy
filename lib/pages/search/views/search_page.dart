@@ -209,6 +209,7 @@ class _SearchPageState extends State<SearchPage> {
 
                       /// **Logistics Section**
                       if (_filteredLogistics.isNotEmpty) ...[
+                        SizedBox(height: 16),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Text(
