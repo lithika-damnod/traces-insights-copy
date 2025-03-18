@@ -25,6 +25,9 @@ class _SearchPageState extends State<SearchPage> {
       "country": "Sri Lanka",
       "category": "Ecommerce",
       "rating": 4.3,
+      "iconColor": Color.fromRGBO(105, 105, 108, 1), // ✅ Custom icon color
+      "showRatingText": false,
+      "customIcon": CupertinoIcons.star_slash,
     },
     {
       "logoUrl": "assets/icons/amazon.png",
@@ -37,8 +40,10 @@ class _SearchPageState extends State<SearchPage> {
       "logoUrl": "assets/icons/amazon.png",
       "businessName": "Amazon.com, Inc",
       "country": "Sri Lanka",
-      "category": "Econ",
+      "category": "Ecommerce",
       "rating": 4.3,
+      "ratingColor": Color.fromRGBO(230, 123, 123, 0.75), // ✅ Custom text color
+      "iconColor": Color.fromRGBO(230, 123, 123, 0.75), // ✅ Custom icon color
     },
   ];
 
@@ -47,14 +52,14 @@ class _SearchPageState extends State<SearchPage> {
       "logoUrl": "assets/icons/amazon.png",
       "businessName": "Amazon.com, Inc",
       "country": "Sri Lanka",
-      "category": "Econ",
+      "category": "Ecommerce",
       "rating": 4.3,
     },
     {
       "logoUrl": "assets/icons/amazon.png",
       "businessName": "Amazon.com, Inc",
       "country": "Sri Lanka",
-      "category": "Econ",
+      "category": "Ecommerce",
       "rating": 4.3,
     },
   ];
@@ -202,6 +207,19 @@ class _SearchPageState extends State<SearchPage> {
                               country: business["country"],
                               category: business["category"],
                               rating: business["rating"],
+                              showRatingText:
+                                  (business["showRatingText"] as bool?) ??
+                                      true, // ✅ Default true
+                              customIcon: (business["customIcon"]
+                                      as IconData?) ??
+                                  CupertinoIcons.star_fill, // ✅ Default icon
+                              ratingColor: (business["ratingColor"]
+                                      as Color?) ??
+                                  Color.fromRGBO(
+                                      209, 219, 88, 0.75), // ✅ Default color
+                              iconColor: (business["iconColor"] as Color?) ??
+                                  Color.fromRGBO(
+                                      209, 219, 88, 0.75), // ✅ Default color
                             ),
                           );
                         }).toList(),
@@ -230,6 +248,19 @@ class _SearchPageState extends State<SearchPage> {
                               country: logistic["country"],
                               category: logistic["category"],
                               rating: logistic["rating"],
+                              showRatingText:
+                                  (logistic["showRatingText"] as bool?) ??
+                                      true, // ✅ Default true
+                              customIcon: (logistic["customIcon"]
+                                      as IconData?) ??
+                                  CupertinoIcons.star_fill, // ✅ Default icon
+                              ratingColor: (logistic["ratingColor"]
+                                      as Color?) ??
+                                  Color.fromRGBO(
+                                      209, 219, 88, 0.75), // ✅ Default color
+                              iconColor: (logistic["iconColor"] as Color?) ??
+                                  Color.fromRGBO(
+                                      209, 219, 88, 0.75), // ✅ Default color
                             ),
                           );
                         }).toList(),

@@ -7,7 +7,12 @@ class BusinessCard extends StatelessWidget {
   final String country;
   final String category;
   final double rating;
+  final bool showRatingText;
+  final IconData customIcon;
+  final Color ratingColor;
+  final Color iconColor;
 
+  /// ✅ Set default colors here
   const BusinessCard({
     super.key,
     required this.logoUrl,
@@ -15,36 +20,11 @@ class BusinessCard extends StatelessWidget {
     required this.country,
     required this.category,
     required this.rating,
+    this.showRatingText = true, // ✅ Default: Show rating text
+    this.customIcon = CupertinoIcons.star_fill, // ✅ Default: Star icon
+    this.ratingColor = Colors.white, // ✅ Default: White text
+    this.iconColor = Colors.white, // ✅ Default: White icon
   });
-
-  static const TextStyle commonTextStyle = TextStyle(
-    color: Colors.white,
-    fontSize: 16,
-    fontFamily: 'SF Pro Text',
-    fontWeight: FontWeight.w500,
-    letterSpacing: -0.43,
-  );
-
-  Widget _buildLogo(String logoUrl) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16.94),
-      child: logoUrl.startsWith('http')
-          ? Image.network(
-              logoUrl,
-              width: 47.37,
-              height: 47.37,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) =>
-                  const Icon(Icons.broken_image, size: 45, color: Colors.grey),
-            )
-          : Image.asset(
-              logoUrl,
-              width: 47.37,
-              height: 47.37,
-              fit: BoxFit.cover,
-            ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,23 +36,42 @@ class BusinessCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              /// ✅ Left Side: Logo + Business Info
               Row(
                 children: [
-                  _buildLogo(logoUrl),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16.94),
+                    child: Image.asset(
+                      logoUrl,
+                      width: 47.37,
+                      height: 47.37,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         businessName,
-                        style: commonTextStyle.copyWith(fontSize: 19),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 19,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       const SizedBox(height: 2),
                       Row(
                         children: [
                           Opacity(
                             opacity: 0.70,
-                            child: Text(country, style: commonTextStyle),
+                            child: Text(
+                              country,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
                           const SizedBox(width: 6),
                           Container(
@@ -86,7 +85,13 @@ class BusinessCard extends StatelessWidget {
                           const SizedBox(width: 6),
                           Opacity(
                             opacity: 0.50,
-                            child: Text(category, style: commonTextStyle),
+                            child: Text(
+                              category,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -94,21 +99,25 @@ class BusinessCard extends StatelessWidget {
                   ),
                 ],
               ),
+
+              /// ✅ Right Side: Icon + Optional Rating Text
               Row(
                 children: [
-                  const Icon(
-                    CupertinoIcons.star_fill,
-                    color: Color.fromRGBO(209, 219, 88, 0.75),
+                  Icon(
+                    customIcon, // ✅ Custom icon dynamically
+                    color: iconColor, // ✅ Custom icon color
                     size: 17,
                   ),
                   const SizedBox(width: 4),
-                  Text(
-                    '${rating.toStringAsFixed(1)} / 5',
-                    style: commonTextStyle.copyWith(
-                      fontSize: 17,
-                      color: Color.fromRGBO(209, 219, 88, 0.75),
-                    ),
-                  ),
+                  showRatingText // ✅ Conditionally show rating text
+                      ? Text(
+                          '${rating.toStringAsFixed(1)} / 5',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: ratingColor, // ✅ Custom rating text color
+                          ),
+                        )
+                      : const SizedBox(), // ❌ Hide text if false
                 ],
               ),
             ],
