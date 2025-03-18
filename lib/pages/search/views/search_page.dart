@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:traces/pages/search/views/details/details_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
-import 'package:traces/pages/search/views/widgets/business_list_tile.dart';
 import 'package:traces/pages/search/views/widgets/business_card.dart';
+import 'package:traces/pages/search/views/widgets/business_list_tile.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -16,6 +16,7 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
   bool _showBusinessCards = false;
+  bool _showLogisticsCards = false;
 
   final List<Map<String, dynamic>> _businesses = [
     {
@@ -36,34 +37,71 @@ class _SearchPageState extends State<SearchPage> {
       "logoUrl": "assets/icons/amazon.png",
       "businessName": "Amazon.com, Inc",
       "country": "Sri Lanka",
-      "category": "Ecommerce",
+      "category": "Econ",
+      "rating": 4.3,
+    },
+  ];
+
+  final List<Map<String, dynamic>> _logistics = [
+    {
+      "logoUrl": "assets/icons/amazon.png",
+      "businessName": "Amazon.com, Inc",
+      "country": "Sri Lanka",
+      "category": "Econ",
+      "rating": 4.3,
+    },
+    {
+      "logoUrl": "assets/icons/amazon.png",
+      "businessName": "Amazon.com, Inc",
+      "country": "Sri Lanka",
+      "category": "Econ",
       "rating": 4.3,
     },
   ];
 
   List<Map<String, dynamic>> _filteredBusinesses = [];
+  List<Map<String, dynamic>> _filteredLogistics = [];
 
   @override
   void initState() {
     super.initState();
     _filteredBusinesses = _businesses;
+    _filteredLogistics = _logistics;
   }
 
   void _filterSearch(String query) {
     setState(() {
       _isSearching = query.isNotEmpty;
       _showBusinessCards = _isSearching;
+      _showLogisticsCards = _isSearching;
 
       if (query.isEmpty) {
         _filteredBusinesses = _businesses;
+        _filteredLogistics = _logistics;
       } else {
         _filteredBusinesses = _businesses
             .where((business) => business["businessName"]
                 .toLowerCase()
                 .contains(query.toLowerCase()))
             .toList();
+
+        _filteredLogistics = _logistics
+            .where((logistic) => logistic["businessName"]
+                .toLowerCase()
+                .contains(query.toLowerCase()))
+            .toList();
       }
     });
+  }
+
+  void _showBusinessDetails(Map<String, dynamic> business) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => ModalBottomSheet(
+        child: DetailsView(), // ✅ Opens DetailsView on tap
+      ),
+    );
   }
 
   @override
@@ -74,9 +112,10 @@ class _SearchPageState extends State<SearchPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /// 🔍 Search Bar
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 25.0),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
               child: Row(
                 children: [
                   Expanded(child: buildSearchBar()),
@@ -88,7 +127,9 @@ class _SearchPageState extends State<SearchPage> {
                       setState(() {
                         _isSearching = false;
                         _showBusinessCards = false;
+                        _showLogisticsCards = false;
                         _filteredBusinesses = _businesses;
+                        _filteredLogistics = _logistics;
                       });
                     },
                     child: const Text(
@@ -105,20 +146,8 @@ class _SearchPageState extends State<SearchPage> {
                 ],
               ),
             ),
-            if (_isSearching && _filteredBusinesses.isEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 100),
-                child: Center(
-                  child: Text(
-                    "No Results Found",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
+
+            /// 📌 **Always Show Categories Section**
             if (!_isSearching) ...[
               BusinessListTile(
                 svgPath: "assets/icons/building.2.svg",
@@ -143,26 +172,30 @@ class _SearchPageState extends State<SearchPage> {
                 trailingIcon: CupertinoIcons.line_horizontal_3_decrease,
               ),
             ],
-            if (_showBusinessCards && _filteredBusinesses.isNotEmpty)
+
+            /// 📌 **Show Search Results Below Categories**
+            if (_showBusinessCards || _showLogisticsCards)
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ListView.builder(
-                    itemCount: _filteredBusinesses.length,
-                    itemBuilder: (context, index) {
-                      var business = _filteredBusinesses[index];
-                      return Column(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                backgroundColor: Colors.transparent,
-                                builder: (context) => ModalBottomSheet(
-                                  child: DetailsView(),
-                                ),
-                              );
-                            },
+                  child: ListView(
+                    children: [
+                      /// **Businesses Section**
+                      if (_filteredBusinesses.isNotEmpty) ...[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Text(
+                            "Businesses (${_filteredBusinesses.length})",
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        ..._filteredBusinesses.map((business) {
+                          return GestureDetector(
+                            onTap: () => _showBusinessDetails(business),
                             child: BusinessCard(
                               logoUrl: business["logoUrl"],
                               businessName: business["businessName"],
@@ -170,10 +203,37 @@ class _SearchPageState extends State<SearchPage> {
                               category: business["category"],
                               rating: business["rating"],
                             ),
+                          );
+                        }).toList(),
+                      ],
+
+                      /// **Logistics Section**
+                      if (_filteredLogistics.isNotEmpty) ...[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Text(
+                            "Logistics (${_filteredLogistics.length})",
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ],
-                      );
-                    },
+                        ),
+                        ..._filteredLogistics.map((logistic) {
+                          return GestureDetector(
+                            onTap: () => _showBusinessDetails(logistic),
+                            child: BusinessCard(
+                              logoUrl: logistic["logoUrl"],
+                              businessName: logistic["businessName"],
+                              country: logistic["country"],
+                              category: logistic["category"],
+                              rating: logistic["rating"],
+                            ),
+                          );
+                        }).toList(),
+                      ],
+                    ],
                   ),
                 ),
               ),
@@ -231,12 +291,10 @@ class _SearchPageState extends State<SearchPage> {
     setState(() {
       _isSearching = true;
       _showBusinessCards = category == "Businesses";
+      _showLogisticsCards = category == "Logistics";
 
-      if (_showBusinessCards) {
-        _filteredBusinesses = _businesses;
-      } else {
-        _filteredBusinesses = [];
-      }
+      _filteredBusinesses = _showBusinessCards ? _businesses : [];
+      _filteredLogistics = _showLogisticsCards ? _logistics : [];
     });
   }
 }
