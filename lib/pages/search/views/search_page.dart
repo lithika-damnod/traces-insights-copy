@@ -171,7 +171,6 @@ class _SearchPageState extends State<SearchPage> {
                               rating: business["rating"],
                             ),
                           ),
-                          const SizedBox(height: 20),
                         ],
                       );
                     },

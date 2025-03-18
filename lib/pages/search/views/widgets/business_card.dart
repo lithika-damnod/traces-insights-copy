@@ -17,7 +17,8 @@ class BusinessCard extends StatelessWidget {
     required this.rating,
   });
 
-  static const TextStyle textStyle = TextStyle(
+  // ✅ Common TextStyle
+  static const TextStyle commonTextStyle = TextStyle(
     color: Colors.white,
     fontSize: 16,
     fontFamily: 'SF Pro Text',
@@ -25,31 +26,26 @@ class BusinessCard extends StatelessWidget {
     letterSpacing: -0.43,
   );
 
+  // ✅ Build Business Logo
   Widget _buildLogo(String logoUrl) {
-    if (logoUrl.startsWith('http')) {
-      // ✅ Load network image
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(16.94),
-        child: Image.network(
-          logoUrl,
-          width: 47.37,
-          height: 47.37,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) =>
-              const Icon(Icons.broken_image, size: 45, color: Colors.grey),
-        ),
-      );
-    } else {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(16.94),
-        child: Image.asset(
-          logoUrl,
-          width: 47.37,
-          height: 47.37,
-          fit: BoxFit.cover,
-        ),
-      );
-    }
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16.94),
+      child: logoUrl.startsWith('http')
+          ? Image.network(
+              logoUrl,
+              width: 47.37,
+              height: 47.37,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) =>
+                  const Icon(Icons.broken_image, size: 45, color: Colors.grey),
+            )
+          : Image.asset(
+              logoUrl,
+              width: 47.37,
+              height: 47.37,
+              fit: BoxFit.cover,
+            ),
+    );
   }
 
   @override
@@ -71,22 +67,28 @@ class BusinessCard extends StatelessWidget {
                     children: [
                       Text(
                         businessName,
-                        style: textStyle.copyWith(fontSize: 19),
+                        style: commonTextStyle.copyWith(fontSize: 19),
                       ),
-                      const SizedBox(height: 0),
+                      const SizedBox(height: 2),
                       Row(
                         children: [
                           Opacity(
                             opacity: 0.70,
-                            child: Text(country, style: textStyle),
+                            child: Text(country, style: commonTextStyle),
                           ),
                           const SizedBox(width: 6),
-                          const Icon(Icons.circle,
-                              size: 5, color: Color(0xFF535353)), // ✅ Small dot
+                          Container(
+                            width: 3,
+                            height: 3,
+                            decoration: const BoxDecoration(
+                              color: Color(0xFF535353),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
                           const SizedBox(width: 6),
                           Opacity(
                             opacity: 0.50,
-                            child: Text(category, style: textStyle),
+                            child: Text(category, style: commonTextStyle),
                           ),
                         ],
                       ),
@@ -104,19 +106,20 @@ class BusinessCard extends StatelessWidget {
                   const SizedBox(width: 4),
                   Text(
                     '${rating.toStringAsFixed(1)} / 5',
-                    style: textStyle.copyWith(
-                        fontSize: 17, color: const Color(0xBFD0DA57)),
+                    style: commonTextStyle.copyWith(
+                      fontSize: 17,
+                      color: const Color(0xBFD0DA57),
+                    ),
                   ),
                 ],
               ),
             ],
           ),
         ),
-        Container(
-          height: 0.25,
-          width: double.infinity,
-          color: Colors.grey.shade700,
-          margin: const EdgeInsets.symmetric(horizontal: 0),
+        Divider(
+          height: 0,
+          thickness: 0.5,
+          color: Color.fromRGBO(84, 84, 88, 0.65),
         ),
       ],
     );

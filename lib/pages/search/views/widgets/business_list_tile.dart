@@ -74,7 +74,7 @@ class BusinessListTile extends StatelessWidget {
         ),
         Divider(
           color: const Color.fromRGBO(84, 84, 88, 0.65),
-          thickness: 0.25,
+          thickness: 0.5,
           indent: 24,
         ),
       ],
