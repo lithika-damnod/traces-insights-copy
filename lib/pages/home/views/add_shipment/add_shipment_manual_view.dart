@@ -27,7 +27,7 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Title Row with QR Code Icon
+          // Title and QR Code Icon
           Padding(
             padding: const EdgeInsets.only(bottom: 0.0),
             child: Row(
@@ -36,7 +36,7 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
                 Text(
                   "Link New Shipment",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 21,
                     fontWeight: FontWeight.w500,
                     color: Colors.white,
                   ),
@@ -50,7 +50,7 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
                       color: Colors.grey[900],
                     ),
                     child: const Icon(CupertinoIcons.qrcode,
-                        color: Colors.blueAccent, size: 23.76),
+                        color: Color.fromRGBO(10, 132, 255, 1), size: 23.76),
                   ),
                   onPressed: () {
                     final modal = context
@@ -65,13 +65,13 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
           Text(
             "Provide your shipment details to link it to your account. You can enter the information manually or quickly scan the QR code for faster input.",
             style: TextStyle(
-              fontSize: 15.3,
+              fontSize: 17,
               color: Color.fromRGBO(255, 255, 255, 0.6),
             ),
           ),
           SizedBox(height: 16.0),
 
-          // Input Field with Checkmark or Clear Button
+          // Input Field
           TextField(
             controller: _trackingController,
             onChanged: _onTrackingChanged,
@@ -79,12 +79,12 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
             decoration: InputDecoration(
               hintText: "Enter Tracking Number",
               hintStyle: const TextStyle(
-                color: Colors.grey,
+                color: Color.fromRGBO(235, 235, 245, 0.6),
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),
               filled: true,
-              fillColor: Colors.grey[850],
+              fillColor: Color.fromRGBO(28, 28, 30, 1),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14.0),
                 borderSide: BorderSide.none,
@@ -116,7 +116,7 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
 
           SizedBox(height: 14.0),
 
-          // Add Shipment Button (Disabled when empty)
+          // Add Shipment Button
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
