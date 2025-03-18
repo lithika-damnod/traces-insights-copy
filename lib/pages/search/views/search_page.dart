@@ -182,17 +182,22 @@ class _SearchPageState extends State<SearchPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: _filteredBusinesses.isEmpty &&
                           _filteredLogistics.isEmpty
-                      ? Center(
-                          child: Opacity(
-                            opacity: 0.50,
-                            child: Text(
-                              'No Results Found',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'SF Pro Text',
-                                fontWeight: FontWeight.w400,
-                                letterSpacing: -0.41,
+                      ? Align(
+                          alignment: Alignment.topCenter,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: 75), // Adjust the value as needed
+                            child: Opacity(
+                              opacity: 0.50,
+                              child: Text(
+                                'No Results Found',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: 'SF Pro Text',
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: -0.41,
+                                ),
                               ),
                             ),
                           ),
