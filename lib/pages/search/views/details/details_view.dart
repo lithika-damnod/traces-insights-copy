@@ -24,74 +24,75 @@ class DetailsView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Container(
+                    width: 64,
+                    height: 64,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(17.78),
+                      child: Image.asset(
+                        "assets/icons/chanel.png",
+                        width: 52,
+                        height: 52,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 15),
+
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(14.82),
-                        child: Container(
-                          width: 60.02,
-                          height: 59.02,
+                    children: const [
+                      Text(
+                        'Chanel, Inc.',
+                        style: TextStyle(
                           color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(6),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(17.78),
-                              child: Image.asset(
-                                "assets/icons/amazon.png",
-                                width: 48.02,
-                                height: 47.22,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
+                          fontSize: 22,
+                          fontFamily: 'SF Pro Text',
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: -0.45,
                         ),
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                      SizedBox(width: 6),
+                      Opacity(
+                        opacity: 0.90,
+                        child: Row(
+                          children: [
+                            Icon(
+                              CupertinoIcons.star_fill,
+                              color: Color(0xFFD0DA57),
+                              size: 18,
+                            ),
+                            SizedBox(width: 4),
                             Text(
-                              'Chanel, Inc.',
+                              '4.3 / 5',
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
+                                color: Color(0xFFD0DA57),
+                                fontSize: 17.46,
                                 fontFamily: 'SF Pro Text',
                                 fontWeight: FontWeight.w500,
-                                letterSpacing: -0.43,
+                                letterSpacing: -0.44,
                               ),
-                            ),
-                            SizedBox(height: 4),
-                            Row(
-                              children: [
-                                Icon(
-                                  CupertinoIcons.star_fill,
-                                  color: Color(0xBFD0DA57),
-                                  size: 17.46,
-                                ),
-                                SizedBox(width: 4),
-                                Text(
-                                  '4.3 / 5',
-                                  style: TextStyle(
-                                    color: Color(0xBFD0DA57),
-                                    fontSize: 17.46,
-                                    fontFamily: 'SF Pro Text',
-                                    fontWeight: FontWeight.w500,
-                                    letterSpacing: -0.44,
-                                  ),
-                                ),
-                              ],
                             ),
                           ],
                         ),
                       ),
                     ],
                   ),
+
                   const SizedBox(height: 10),
-                  SizedBox(
+
+                  // Business Description
+                  const SizedBox(
                     width: 405,
-                    child: const Opacity(
+                    child: Opacity(
                       opacity: 0.70,
                       child: Text(
                         'Chanel is synonymous with timeless elegance and innovative luxury. '
@@ -108,7 +109,9 @@ class DetailsView extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 15),
+
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -152,13 +155,19 @@ class DetailsView extends StatelessWidget {
                       ),
                     ],
                   ),
+
                   const SizedBox(height: 20),
-                  Divider(
+
+                  // Divider
+                  const Divider(
                     height: 0,
                     thickness: 0.5,
                     color: Color.fromRGBO(84, 84, 88, 0.65),
                   ),
+
                   const SizedBox(height: 20),
+
+                  // Address Section
                   SizedBox(
                     width: 389,
                     child: Row(
@@ -248,7 +257,10 @@ class DetailsView extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                if (showCloseButton) const CloseButton(color: Colors.white),
+                if (showCloseButton)
+                  const CloseButton(
+                    color: Colors.white,
+                  ),
                 if (actions != null) ...actions!,
               ],
             ),
