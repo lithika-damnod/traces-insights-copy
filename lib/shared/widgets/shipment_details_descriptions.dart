@@ -23,6 +23,9 @@ late Color _textColor;
 late Icon icon;
  late Color _iconColor ;
 late String description;
+late double discriptionFontSize ;
+late  double titleFontSize;
+late double fontOpacity;
 
 
 
@@ -36,7 +39,10 @@ void assignColorAndIcons(String titleSimple){
             icon = Icon(CupertinoIcons.check_mark_circled,
             color: Colors.green,);
             description = "The package was successfully delivered to the recipient's address";
+            discriptionFontSize =18;
+            titleFontSize =16;
             _iconColor = Colors.green;
+            fontOpacity =0.6;
             break;
 
           case "out for delivery":
@@ -44,21 +50,30 @@ void assignColorAndIcons(String titleSimple){
             icon =Icon(CupertinoIcons.arrow_right,
             color: Colors.orange,);
             description= "The package is with the delivery driver and on its way to the recipient";
+            discriptionFontSize =18;
+            titleFontSize =16;
             _iconColor = Colors.orange;
+            fontOpacity =0.6;
             break;
 
           case "picked up":
             _textColor = Colors.white;
-            icon = Icon(CupertinoIcons.flag_fill,color: Colors.yellow);
+            icon = Icon(CupertinoIcons.flag_fill,color: Colors.yellow,);
             description = "Pending Customer Clearance in ${widget.pickupLocation}";
+            discriptionFontSize =18;
+            titleFontSize =16;
             _iconColor= Colors.yellow;
+            fontOpacity =0.6;
             break;
 
           default:
             _textColor = Colors.white;
             icon = Icon(CupertinoIcons.arrow_up_left);
             description = widget.address!;
+            discriptionFontSize =18;
+            titleFontSize =18;
             _iconColor =Colors.white;
+            fontOpacity=0.4;
 
         }
 
@@ -81,24 +96,25 @@ void assignColorAndIcons(String titleSimple){
         Row(
           children: [
             Text(
-              "${widget.shipmentStatus.value}", style: TextStyle(color: _textColor),
+              "${widget.shipmentStatus.value}", style: TextStyle(color: _textColor.withOpacity(fontOpacity), fontSize: titleFontSize),
             ),
             SizedBox(
               width: 10,
               height: 0,
 
             ),
-            widget.dateTime != null ? Text("${widget.dateTime}", style: TextStyle(color: _textColor)) : SizedBox.shrink(),
+            widget.dateTime != null ? Text("${widget.dateTime}", style: TextStyle(color: _textColor.withOpacity(0.3), fontSize: 17)) : SizedBox.shrink(),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Flexible(
               flex: 5,
               child: Wrap(
                   children: [
-                  Text("$description",style: TextStyle(color: _textColor)),
+                  Text("$description",style: TextStyle(color: _textColor.withOpacity(  titleSimple !="shipping address"? fontOpacity : 0.7),fontSize: discriptionFontSize)),
                 ]
                ),
             ),
@@ -117,7 +133,7 @@ void assignColorAndIcons(String titleSimple){
           ],
         ),
         SizedBox(
-          height: 25,
+          height: 23,
         )
       ],
     );
