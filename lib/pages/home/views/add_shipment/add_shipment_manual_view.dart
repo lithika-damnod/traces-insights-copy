@@ -22,7 +22,6 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
       child: Column(
@@ -30,13 +29,13 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
         children: [
           // Title Row with QR Code Icon
           Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
+            padding: const EdgeInsets.only(bottom: 0.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Link New Shipment",
-                  style: theme.textTheme.titleMedium?.copyWith(
+                  style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                     color: Colors.white,
