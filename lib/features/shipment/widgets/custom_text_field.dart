@@ -22,7 +22,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.hint);
+    _controller = TextEditingController(); // Remove initial text
   }
 
   @override
@@ -55,6 +55,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           TextFormField(
             controller: _controller,
             enabled: widget.isEditable,
+            cursorColor: Colors.white70,
             style: TextStyle(
               color: Color.fromRGBO(235, 235, 245, 0.60),
               fontSize: 18.0,
@@ -67,8 +68,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
               filled: true,
               fillColor: Color.fromRGBO(28, 28, 30, 1),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(12.0),
                 borderSide: BorderSide.none,
+              ),
+              hintText: widget.hint, // Correct way to set hintText
+              hintStyle: TextStyle(
+                color: Color.fromRGBO(
+                    235, 235, 245, 0.4), // Lighter color for hint
+                fontSize: 18.0,
+                fontWeight: FontWeight.w400,
+                fontFamily: "SF Pro Text",
+                letterSpacing: -0.408,
               ),
 
               /// **Clear Button without Click Effect**
