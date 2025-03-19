@@ -44,9 +44,7 @@ class DetailsView extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 15),
-
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: const [
@@ -86,10 +84,7 @@ class DetailsView extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 10),
-
-                  // Business Description
                   const SizedBox(
                     width: 405,
                     child: Opacity(
@@ -109,9 +104,7 @@ class DetailsView extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 15),
-
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -155,19 +148,13 @@ class DetailsView extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 20),
-
-                  // Divider
                   const Divider(
                     height: 0,
                     thickness: 0.5,
                     color: Color.fromRGBO(84, 84, 88, 0.65),
                   ),
-
                   const SizedBox(height: 20),
-
-                  // Address Section
                   SizedBox(
                     width: 389,
                     child: Row(

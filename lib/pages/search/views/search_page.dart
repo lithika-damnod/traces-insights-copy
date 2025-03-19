@@ -186,14 +186,14 @@ class _SearchPageState extends State<SearchPage> {
                           alignment: Alignment.topCenter,
                           child: Padding(
                             padding: EdgeInsets.only(
-                                top: 75), // Adjust the value as needed
+                                top: 75),
                             child: Opacity(
                               opacity: 0.50,
                               child: Text(
                                 'No Results Found',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 17,
+                                  fontSize: 18,
                                   fontFamily: 'SF Pro Text',
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: -0.41,
