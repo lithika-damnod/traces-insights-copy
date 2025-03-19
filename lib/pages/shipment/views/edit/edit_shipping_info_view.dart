@@ -66,11 +66,11 @@ class EditShippingInformationView extends StatelessWidget {
 
             /// **Form Fields**
             CustomTextField(
-                label: "Street Address Line 1", hint: "Enter street address 1"),
+                label: "Street Address Line 1", hint: "No. 50, Madagalla Road"),
             CustomTextField(
-                label: "Street Address Line 2", hint: "Enter street address 2"),
-            CustomTextField(label: "City", hint: "Enter city name"),
-            CustomTextField(label: "Province", hint: "Enter province"),
+                label: "Street Address Line 2", hint: "No. 50, Madagalla Road"),
+            CustomTextField(label: "City", hint: "Kurunegala"),
+            CustomTextField(label: "Province", hint: "North Western"),
             CustomTextField(
                 label: "Country", hint: "Sri Lanka", isEditable: false),
 
