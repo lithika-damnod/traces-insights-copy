@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,8 +7,7 @@ import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/features/shipment/widgets/custom_elevated_button.dart';
 import 'package:traces/features/shipment/widgets/circular_icon_button.dart';
 import 'package:traces/features/shipment/widgets/dashed_octagon_painter.dart';
-
-import '../../../../features/shipment/widgets/map_control_button.dart';
+import 'package:traces/features/shipment/widgets/map_control_button.dart';
 
 class PinLocationView extends StatefulWidget {
   const PinLocationView({super.key});
@@ -22,7 +19,6 @@ class PinLocationView extends StatefulWidget {
 class _PinLocationViewState extends State<PinLocationView> {
   double _pinTop = 200; // Initial position inside the map
   double _pinLeft = 160; // Centered horizontally
-  // final double hexagonRadius = 140;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +127,7 @@ class _PinLocationViewState extends State<PinLocationView> {
                 height: 707,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: Colors.black12, // Optional background color
+                  color: Colors.black12,
                 ),
                 child: Stack(
                   children: [
@@ -139,7 +135,7 @@ class _PinLocationViewState extends State<PinLocationView> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Image.asset(
-                        'assets/icons/map_pin.png', // Replace with actual map asset
+                        'assets/icons/map_pin.png',
                         width: double.infinity,
                         height: 707,
                         fit: BoxFit.cover,
@@ -163,42 +159,56 @@ class _PinLocationViewState extends State<PinLocationView> {
                     Positioned(
                       top: _pinTop,
                       left: _pinLeft,
-                      child: Draggable(
-                        feedback: SizedBox(
-                          child: SvgPicture.asset(
-                            'assets/icons/pin.svg', // Replace with your actual path
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        childWhenDragging:
-                            Container(), // Hide the original pin while dragging
-                        child: SizedBox(
-                          child: SvgPicture.asset(
-                            'assets/icons/pin.svg', // Replace with your actual path
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        onDragEnd: (details) {
-                          final RenderBox containerBox =
-                              context.findRenderObject() as RenderBox;
-                          final Offset containerOffset =
-                              containerBox.localToGlobal(Offset.zero);
-
-                          // Calculate the new position relative to the container
-                          double newTop =
-                              details.offset.dy - containerOffset.dy;
-                          double newLeft =
-                              details.offset.dx - containerOffset.dx;
-
-                          // Clamp the new position to stay within the container bounds
+                      child: GestureDetector(
+                        onPanUpdate: (details) {
                           setState(() {
-                            _pinTop = newTop.clamp(0.0, 500);
-                            _pinLeft = newLeft.clamp(
-                                0.0, MediaQuery.of(context).size.width);
+                            // Update the pin position in real-time
+                            _pinTop += details.delta.dy;
+                            _pinLeft += details.delta.dx;
                           });
                         },
+                        child: SvgPicture.asset(
+                          'assets/icons/pin.svg', // Replace with actual pin path
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
+                    // /// **Draggable Pin**
+                    // Positioned(
+                    //   top: _pinTop,
+                    //   left: _pinLeft,
+                    //   child: Draggable(
+                    //     feedback: SizedBox(
+                    //       child: SvgPicture.asset(
+                    //         'assets/icons/pin.svg',
+                    //         fit: BoxFit.contain,
+                    //       ),
+                    //     ),
+                    //     childWhenDragging: Container(), // Hide the original pin while dragging
+                    //     child: SizedBox(
+                    //       child: SvgPicture.asset(
+                    //         'assets/icons/pin.svg',
+                    //         fit: BoxFit.contain,
+                    //       ),
+                    //     ),
+                    //     onDragEnd: (details) {
+                    //       // Get the size of the parent container
+                    //       final RenderBox parentRenderBox =
+                    //       context.findRenderObject() as RenderBox;
+                    //       final Offset parentOffset = parentRenderBox.localToGlobal(Offset.zero);
+                    //
+                    //       // Calculate new position relative to the container
+                    //       double newTop = details.offset.dy - parentOffset.dy;
+                    //       double newLeft = details.offset.dx - parentOffset.dx;
+                    //
+                    //       // Ensure the pin stays inside the container bounds
+                    //       setState(() {
+                    //         _pinTop = newTop.clamp(0.0, parentRenderBox.size.height - 50);
+                    //         _pinLeft = newLeft.clamp(0.0, parentRenderBox.size.width - 50);
+                    //       });
+                    //     },
+                    //   ),
+                    // ),
 
                     /// **Map Control Buttons**
                     MapControlButtons(
@@ -230,5 +240,3 @@ class _PinLocationViewState extends State<PinLocationView> {
     );
   }
 }
-
-/// **Painter for Darkened Background Outside the Hexagon**
