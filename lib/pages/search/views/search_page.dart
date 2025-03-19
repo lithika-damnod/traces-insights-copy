@@ -185,8 +185,7 @@ class _SearchPageState extends State<SearchPage> {
                       ? Align(
                           alignment: Alignment.topCenter,
                           child: Padding(
-                            padding: EdgeInsets.only(
-                                top: 75),
+                            padding: EdgeInsets.only(top: 75),
                             child: Opacity(
                               opacity: 0.50,
                               child: Text(
