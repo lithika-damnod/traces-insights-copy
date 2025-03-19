@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:traces/features/map/services/location_service.dart';
 import 'package:traces/features/map/widgets/map.dart';
+import 'package:traces/features/map/widgets/marker_icon.dart';
 import 'package:traces/features/map/widgets/title_bar.dart';
 
 class MapPage extends StatefulWidget {
@@ -16,15 +17,53 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   GoogleMapController? _mapController;
   StreamSubscription? _locationSubscription;
+  Set<Marker> myMarkers = {};
 
   LatLng? _currentPosition;
   final LatLng _defaultCenter =
       const LatLng(7.821603639133135, 80.406256487888);
 
+  Future<void> _loadMarkers() async {
+    BitmapDescriptor customIcon = await MarkerIcon.major();
+    BitmapDescriptor addressIcon = await MarkerIcon.address();
+
+    Set<Marker> markers = {
+      Marker(
+        markerId: const MarkerId("1"),
+        position: LatLng(6.9271, 79.8612),
+        infoWindow: const InfoWindow(title: "Colombo"),
+        icon: customIcon, // Now we can use the custom icon
+      ),
+      Marker(
+        markerId: const MarkerId("2"),
+        position: LatLng(7.5620, 79.8017),
+        infoWindow: const InfoWindow(title: "Halawatha"),
+        icon: customIcon, // Now we can use the custom icon
+      ),
+      Marker(
+        markerId: const MarkerId("3"),
+        position: LatLng(7.4818, 80.3609),
+        infoWindow: const InfoWindow(title: "Kurunegala"),
+        icon: customIcon, // Now we can use the custom icon
+      ),
+      Marker(
+        markerId: const MarkerId("4"),
+        position: LatLng(7.821603639133135, 80.406256487888),
+        infoWindow: const InfoWindow(title: "Polpithigama"),
+        icon: addressIcon, // Now we can use the custom icon
+      ),
+    };
+
+    setState(() {
+      myMarkers = markers;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _setupLocationTracking();
+    _loadMarkers();
   }
 
   @override
@@ -76,6 +115,7 @@ class _MapPageState extends State<MapPage> {
         onMapCreated: (controller) {
           _mapController = controller;
         },
+        markers: myMarkers,
       ),
     );
   }

@@ -6,11 +6,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class Map extends StatefulWidget {
   final LatLng initialPosition;
   final void Function(GoogleMapController) onMapCreated;
+  final Set<Marker> markers;
 
   const Map({
     super.key,
     required this.initialPosition,
     required this.onMapCreated,
+    this.markers = const {},
   });
 
   @override
@@ -33,6 +35,7 @@ class _MapState extends State<Map> {
             ),
             myLocationButtonEnabled: false,
             myLocationEnabled: true,
+            markers: widget.markers,
           ),
         ),
       ],
