@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:traces/pages/home/views/add_shipment/add_shipment_scan_view.dart';
-import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
+import 'package:traces/shared/widgets/modal_bottom_sheet.dart'
+    as ModalBottomSheetWrapper;
 import 'package:flutter/cupertino.dart';
 
 class AddShipmentManualView extends StatefulWidget {
@@ -53,8 +55,8 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
                         color: Color.fromRGBO(10, 132, 255, 1), size: 23.76),
                   ),
                   onPressed: () {
-                    final modal = context
-                        .findAncestorStateOfType<ModalBottomSheetState>();
+                    final modal = context.findAncestorStateOfType<
+                        ModalBottomSheetWrapper.ModalBottomSheetState>();
                     modal?.navigateTo(AddShipmentScanView());
                   },
                 ),
