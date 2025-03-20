@@ -22,7 +22,7 @@ class _SenderInformationState extends State<SenderInformation> {
         ShipmentDetailsRowInfo(label: "Address", value: widget.address),
         ShipmentDetailsRowInfo(label: "Contact Number", value: widget.contatctNumber,isPhoneNumber: true,),
         SizedBox(
-          height: 30,
+          height: 25,
         )
       ],
     );

@@ -23,7 +23,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
         ShipmentDetailsRowInfo(label: "Payment Status", value: widget.paymentStatus),
         ShipmentDetailsRowInfo(label: "Total Cost", value: widget.totalCost),
         SizedBox(
-          height: 30,
+          height: 25,
         )
       ],
 

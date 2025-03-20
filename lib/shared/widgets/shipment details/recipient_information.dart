@@ -21,7 +21,7 @@ class _RecipientInformationState extends State<RecipientInformation> {
         ShipmentDetailsRowInfo(label: "Address", value: "${widget.address}"),
         ShipmentDetailsRowInfo(label: "Contact Number", value: "${widget.phoneNumber}",isPhoneNumber: true,),
         SizedBox(
-          height: 30,
+          height: 25,
         )
       ],
 
