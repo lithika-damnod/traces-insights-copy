@@ -13,7 +13,7 @@ class ModalBottomSheet extends StatefulWidget {
     super.key,
     required this.child,
     this.background = const Color(0xFF121212),
-    this.showCloseButton = true,
+    this.showCloseButton = false,
     this.actions,
   });
 
