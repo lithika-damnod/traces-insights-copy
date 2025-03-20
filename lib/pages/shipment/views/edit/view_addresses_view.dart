@@ -67,28 +67,44 @@ class _ViewAddressesViewState extends State<ViewAddressesView> {
               ),
               const SizedBox(height: 25.0),
               ElevatedButton(
-                onPressed: () {
-                  final modal =
-                      context.findAncestorStateOfType<ModalBottomSheetState>();
-                  modal?.navigateTo(EditShippingInformationView());
-                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(37, 37, 37, 0.50),
+                  disabledBackgroundColor: Color.fromRGBO(30, 30, 32, 0.5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 11.0),
+                  elevation: 0,
+                ),
+                onPressed: selectedAddressIndex == null
+                    ? () {
+                        final modal = context
+                            .findAncestorStateOfType<ModalBottomSheetState>();
+                        modal?.navigateTo(EditShippingInformationView());
+                      }
+                    : null, // Disable the button when an address is selected
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       "Enter New Address",
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xFF0A84FF),
+                        color: selectedAddressIndex == null
+                            ? Color(0xFF0A84FF) // Normal state
+                            : Colors.white.withOpacity(0.8), // Disabled state
                         fontFamily: "SF Pro Text",
                       ),
                     ),
-                    SizedBox(width: 164.0),
+                    const SizedBox(width: 170.0),
                     Icon(
                       CupertinoIcons.add,
                       size: 20.0,
-                      color: Color(0xFF0A84FF),
+                      color: selectedAddressIndex == null
+                          ? Color(0xFF0A84FF) // Normal state
+                          : Colors.white.withOpacity(0.8), // Disabled state
                     ),
                   ],
                 ),

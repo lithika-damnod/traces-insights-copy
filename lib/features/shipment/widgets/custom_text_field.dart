@@ -73,8 +73,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ),
               hintText: widget.hint, // Correct way to set hintText
               hintStyle: TextStyle(
-                color: Color.fromRGBO(
-                    235, 235, 245, 0.4), // Lighter color for hint
+                color: Color.fromRGBO(235, 235, 245, 0.60),
                 fontSize: 18.0,
                 fontWeight: FontWeight.w400,
                 fontFamily: "SF Pro Text",
