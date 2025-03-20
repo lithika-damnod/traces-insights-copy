@@ -49,16 +49,20 @@ class AddShipmentScanView extends StatelessWidget {
               ),
             ],
           ),
-          const Text(
-            "Provide your shipment details to link it to your account. You can enter the information manually or quickly scan the QR code for faster input.",
-            style: TextStyle(
-              fontSize: 17,
-              color: Color.fromRGBO(255, 255, 255, 0.6),
+          Transform.translate(
+            offset: Offset(0, -10),
+            child: const Text(
+              "Provide your shipment details to link it to your account. You can enter the information manually or quickly scan the QR code for faster input.",
+              style: TextStyle(
+                fontSize: 17,
+                color: Color.fromRGBO(255, 255, 255, 0.6),
+                height: 1.3,
+              ),
             ),
           ),
-          const SizedBox(height: 20.0),
+          const SizedBox(height: 10.0),
           Container(
-            height: 290.0,
+            height: 310.0,
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.black,
