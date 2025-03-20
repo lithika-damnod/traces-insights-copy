@@ -20,9 +20,9 @@ class _ShipmentOverviewState extends State<ShipmentOverview> {
       children: [
         ShipmentDetailsRowInfo(label: "Status", value: widget.shipmentStatus, icon: widget.shipmentStatusIcon, iconColor: Color(0xFFCDD93C)),
         ShipmentDetailsRowInfo(label: "Shipment Id", value: widget.shiomentId),
-        ShipmentDetailsRowInfo(label: "Estimated Delivery Date ", value:  widget.Date, icon: widget.CalenderIcon),
+        ShipmentDetailsRowInfo(label: "Estimated Delivery Date ", value: widget.Date, icon: widget.CalenderIcon),
         SizedBox(
-          height: 30,
+          height: 25,
         )
       ],
     );

@@ -22,7 +22,7 @@ class _PackageInformationState extends State<PackageInformation> {
         ShipmentDetailsRowInfo(label: "Package Size", value: widget.packageSize),
         ShipmentDetailsRowInfo(label: "Dimensions", value: widget.dimensions),
         SizedBox(
-          height: 30,
+          height: 25,
         )
 
 
