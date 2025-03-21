@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:traces/shared/widgets/shipment_status_titles.dart';
+import 'package:traces/shared/widgets/shipment%20details/shipment_status_titles.dart';
 
 
 
