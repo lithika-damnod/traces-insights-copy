@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:traces/pages/shipment/views/shipment_details_page.dart';
+import 'package:traces/shared/widgets/shipment_deatils_page_detailed.dart';
 
 import '../../../shared/widgets/test.dart';
 import '../../../shared/widgets/shipment_details_page_initial.dart';
@@ -7,6 +8,7 @@ import '../../../shared/widgets/shipment_details_page_initial.dart';
 
 
 class ShipmentDetailsPage extends StatefulWidget {
+
   @override
    _ShipmentDetailsPageState createState() => _ShipmentDetailsPageState();
 
@@ -31,8 +33,8 @@ class _ShipmentDetailsPageState extends State<ShipmentDetailsPage> {
                 });
               },
               children: [
-                ShipmentDetailsPageInitial(orderId: "58"),
-                Container(color: Colors.red),
+                ShipmentDetailsPageInitial(orderId: "TX 768 431",shipmentStatus: "in transit",),
+                ShipmentDeatilsPageDetailed(orderId: "TX 768 431",shipmentStatus: "in transit",),
               ],
             ),
           ),
