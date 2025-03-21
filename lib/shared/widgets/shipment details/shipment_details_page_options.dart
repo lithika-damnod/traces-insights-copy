@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:traces/pages/map/views/map_page.dart';
 
 void showShipmentDetailsPageOptions({required BuildContext context, bool inTransit = true}) {
  Color _dividerColor = Color(0xFF3B3B3D);
@@ -35,14 +36,15 @@ void showShipmentDetailsPageOptions({required BuildContext context, bool inTrans
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                option(optionName: "Map View", icon: Icon(CupertinoIcons.map_pin), firstItem: true),
+                option(optionName: "Map View", icon: Icon(CupertinoIcons.map_pin), firstItem: true,navigateTo:() => navigate(context: context, widget: MapPage())),
                 Divider(color: _dividerColor, height: _dividorHeight, thickness: _dividorThickness),
-                option(optionName: "Edit Shipping Address", icon: Icon(CupertinoIcons.refresh), notInTransit: !inTransit),
+                option(optionName: "Edit Shipping Address", icon: Icon(CupertinoIcons.refresh), notInTransit: !inTransit, ),
                 Divider(color: _dividerColor, height: _dividorHeight, thickness: _dividorThickness),
                 option(optionName: "Report a Problem", icon: Icon(CupertinoIcons.exclamationmark_bubble)),
                 Divider(color: _dividerColor, height: _dividorHeight, thickness: _dividorThickness),
                 option(optionName: "Contact Customer Service", icon: Icon(CupertinoIcons.phone)),
                 Divider(color: _dividerColor, height: _dividorHeight, thickness: _dividorThickness),
+                option(optionName: "Request Return", icon: Icon(CupertinoIcons.refresh),notInTransit: !inTransit,lastItem: true),
                 option(
                     optionName: "Cancel Order",
                     icon: Icon(CupertinoIcons.clear_circled, color: CupertinoColors.systemRed),
@@ -66,37 +68,50 @@ Widget option({
   bool firstItem = false,
   bool lastItem = false,
   bool notInTransit = false,
+  VoidCallback? navigateTo,
 }) {
   double borderRadiusTop = firstItem ? 12 : 0;
   double borderRadiusBottom = lastItem ? 12 : 0;
   Color fontColor = (optionName.contains("Cancel") || optionName.contains("Delete")) ? Color(0xFFFF453A) : Colors.white;
 
-  return (notInTransit && (optionName.contains("Edit") || optionName.contains("Cancel")))
+  return ((notInTransit && (optionName.contains("Edit") || optionName.contains("Cancel")))  )
       ? SizedBox.shrink()
-      : Container(
-    height: 50, // Ensuring consistent height
-    decoration: BoxDecoration(
-      color: Color(0xFF1A1A1A),
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(borderRadiusTop),
-        bottom: Radius.circular(borderRadiusBottom),
-      ),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 13,
-        horizontal: 16,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            optionName,
-            style: TextStyle(color: fontColor, fontSize: 18),
+      : InkWell(
+        onTap: navigateTo,
+        child: Container(
+            height: 50, // Ensuring consistent height
+            decoration: BoxDecoration(
+        color: Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(borderRadiusTop),
+          bottom: Radius.circular(borderRadiusBottom),
+        ),
+            ),
+            child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 13,
+          horizontal: 16,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              optionName,
+              style: TextStyle(color: fontColor, fontSize: 18),
+            ),
+            icon
+          ],
+        ),
+            ),
           ),
-          icon
-        ],
-      ),
-    ),
-  );
+      );
 }
+
+void navigate({required BuildContext context, required Widget widget}){
+
+  Navigator.pop(context);
+  Navigator.push(context, MaterialPageRoute(builder: (context) =>widget ));
+
+}
+
+
