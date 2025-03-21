@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:traces/pages/home/views/add_shipment/add_shipment_scan_view.dart';
-import 'package:traces/shared/widgets/modal_bottom_sheet.dart'
-    as ModalBottomSheetWrapper;
 import 'package:flutter/cupertino.dart';
+import 'package:traces/pages/home/views/add_shipment/add_shipment_scan_view.dart';
+import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 
 class AddShipmentManualView extends StatefulWidget {
   const AddShipmentManualView({super.key});
@@ -24,125 +22,195 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Title and QR Code Icon
-          Padding(
-            padding: const EdgeInsets.only(bottom: 0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Link New Shipment",
-                  style: TextStyle(
-                    fontSize: 21,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
-                IconButton(
-                  icon: Container(
-                    width: 43.76,
-                    height: 43.76,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.grey[900],
-                    ),
-                    child: const Icon(CupertinoIcons.qrcode,
-                        color: Color.fromRGBO(10, 132, 255, 1), size: 23.76),
-                  ),
-                  onPressed: () {
-                    final modal = context.findAncestorStateOfType<
-                        ModalBottomSheetWrapper.ModalBottomSheetState>();
-                    modal?.navigateTo(AddShipmentScanView());
-                  },
-                ),
-              ],
-            ),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const TitleAndInstruction(),
+              const SizedBox(height: 16.0),
+              TrackingInputField(
+                controller: _trackingController,
+                onChanged: _onTrackingChanged,
+                isTrackingEntered: _isTrackingEntered,
+                onClear: () {
+                  _trackingController.clear();
+                  _onTrackingChanged("");
+                },
+              ),
+              const SizedBox(height: 14.0),
+              AddShipmentButton(isEnabled: _isTrackingEntered),
+            ],
           ),
+        ),
+        const Positioned(
+          right: 8,
+          child: QRCodeButton(),
+        ),
+      ],
+    );
+  }
+}
 
-          Text(
-            "Provide your shipment details to link it to your account. You can enter the information manually or quickly scan the QR code for faster input.",
-            style: TextStyle(
-              fontSize: 17,
-              color: Color.fromRGBO(255, 255, 255, 0.6),
-            ),
+//TITLE WITH INSTRUCTIONS
+class TitleAndInstruction extends StatelessWidget {
+  const TitleAndInstruction();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Link New Shipment",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
           ),
-          SizedBox(height: 16.0),
-
-          // Input Field
-          TextField(
-            controller: _trackingController,
-            onChanged: _onTrackingChanged,
-            style: const TextStyle(color: Colors.white),
-            decoration: InputDecoration(
-              hintText: "Enter Tracking Number",
-              hintStyle: const TextStyle(
-                color: Color.fromRGBO(235, 235, 245, 0.6),
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
-              filled: true,
-              fillColor: Color.fromRGBO(28, 28, 30, 1),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(14.0),
-                borderSide: BorderSide.none,
-              ),
-              suffixIcon: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (_isTrackingEntered)
-                    const Padding(
-                      padding: EdgeInsets.only(right: 0),
-                      child: Icon(CupertinoIcons.check_mark,
-                          color: Color.fromRGBO(51, 199, 90, 1), size: 20),
-                    ),
-                  IconButton(
-                    icon: const Icon(
-                      CupertinoIcons.xmark_circle_fill,
-                      color: Colors.grey,
-                      size: 20,
-                    ),
-                    onPressed: () {
-                      _trackingController.clear();
-                      _onTrackingChanged("");
-                    },
-                  ),
-                ],
-              ),
-            ),
+        ),
+        SizedBox(height: 8),
+        Text(
+          "Provide your shipment details to link it to your account. You can enter the information manually or quickly scan the QR code for faster input.",
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
+            height: 1.4,
+            letterSpacing: 1,
+            color: Color.fromRGBO(255, 255, 255, 0.6),
           ),
+        ),
+      ],
+    );
+  }
+}
 
-          SizedBox(height: 14.0),
+// QR CODE BUTTON
+class QRCodeButton extends StatelessWidget {
+  const QRCodeButton();
 
-          // Add Shipment Button
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: _isTrackingEntered ? () {} : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    _isTrackingEntered ? Colors.blue : Colors.grey[800],
-                foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(vertical: 14.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14.0),
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Container(
+        width: 43.56,
+        height: 43.56,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.grey[900],
+        ),
+        child: const Icon(
+          CupertinoIcons.qrcode,
+          color: Color.fromRGBO(10, 132, 255, 1),
+          size: 27.76,
+        ),
+      ),
+      onPressed: () {
+        final modal = context.findAncestorStateOfType<ModalBottomSheetState>();
+        modal?.navigateTo(AddShipmentScanView());
+      },
+    );
+  }
+}
+
+// TRACKING INPUT FIELD
+class TrackingInputField extends StatelessWidget {
+  final TextEditingController controller;
+  final Function(String) onChanged;
+  final VoidCallback onClear;
+  final bool isTrackingEntered;
+
+  const TrackingInputField({
+    required this.controller,
+    required this.onChanged,
+    required this.onClear,
+    required this.isTrackingEntered,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      onChanged: onChanged,
+      style: const TextStyle(
+        color: Color.fromRGBO(235, 235, 245, 0.6),
+        fontSize: 18,
+      ),
+      decoration: InputDecoration(
+        hintText: "Enter Tracking Number",
+        hintStyle: const TextStyle(
+          color: Color.fromRGBO(235, 235, 245, 0.6),
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+        filled: true,
+        fillColor: const Color.fromRGBO(28, 28, 30, 1),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14.0),
+          borderSide: BorderSide.none,
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 12.0,
+          horizontal: 16.0,
+        ),
+        suffixIcon: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (isTrackingEntered)
+              const Padding(
+                padding: EdgeInsets.only(right: 0),
+                child: Icon(
+                  CupertinoIcons.check_mark,
+                  color: Color.fromRGBO(51, 199, 90, 1),
+                  size: 20,
                 ),
               ),
-              child: const Text(
-                "Add Shipment",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                textAlign: TextAlign.center,
+            IconButton(
+              icon: const Icon(
+                CupertinoIcons.xmark_circle_fill,
+                color: Colors.grey,
+                size: 20,
               ),
+              onPressed: onClear,
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ADD SHIPMENT BUTTON
+class AddShipmentButton extends StatelessWidget {
+  final bool isEnabled;
+
+  const AddShipmentButton({required this.isEnabled});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: isEnabled ? () {} : null,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: isEnabled ? Colors.blue : Colors.grey[800],
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14.0),
           ),
-        ],
+        ),
+        child: const Text(
+          "Add Shipment",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
