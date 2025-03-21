@@ -5,14 +5,11 @@ import 'package:traces/shared/widgets/shipment%20details/shipment_deatils_page_d
 import '../../../shared/widgets/test.dart';
 import '../../../shared/widgets/shipment details/shipment_details_page_initial.dart';
 
-
-
 class ShipmentDetailsPage extends StatefulWidget {
-
   @override
-   _ShipmentDetailsPageState createState() => _ShipmentDetailsPageState();
+  _ShipmentDetailsPageState createState() => _ShipmentDetailsPageState();
 
-    const   ShipmentDetailsPage({super.key});
+  const ShipmentDetailsPage({super.key});
 }
 
 class _ShipmentDetailsPageState extends State<ShipmentDetailsPage> {
@@ -33,8 +30,14 @@ class _ShipmentDetailsPageState extends State<ShipmentDetailsPage> {
                 });
               },
               children: [
-                ShipmentDetailsPageInitial(orderId: "TX 768 431",shipmentStatus: "in transit",),
-                ShipmentDeatilsPageDetailed(orderId: "TX 768 431",shipmentStatus: "in transit",),
+                ShipmentDetailsPageInitial(
+                  orderId: "TX 768 431",
+                  shipmentStatus: "in transit",
+                ),
+                ShipmentDeatilsPageDetailed(
+                  orderId: "TX 768 431",
+                  shipmentStatus: "in transit",
+                ),
               ],
             ),
           ),
