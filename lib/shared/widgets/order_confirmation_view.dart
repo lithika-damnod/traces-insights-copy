@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class OrderConfirmationView extends StatelessWidget {
-  const OrderConfirmationView({Key? key}) : super(key: key);
+  const OrderConfirmationView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class OrderConfirmationView extends StatelessWidget {
 }
 
 class PickupLabel extends StatelessWidget {
-  const PickupLabel({Key? key}) : super(key: key);
+  const PickupLabel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class PickupLabel extends StatelessWidget {
 }
 
 class TransitLabel extends StatelessWidget {
-  const TransitLabel({Key? key}) : super(key: key);
+  const TransitLabel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class TransitLabel extends StatelessWidget {
 }
 
 class ReceivedLabel extends StatelessWidget {
-  const ReceivedLabel({Key? key}) : super(key: key);
+  const ReceivedLabel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,7 @@ class ReceivedLabel extends StatelessWidget {
 }
 
 class AcceptedLabel extends StatelessWidget {
-  const AcceptedLabel({Key? key}) : super(key: key);
+  const AcceptedLabel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +129,7 @@ class AcceptedLabel extends StatelessWidget {
 }
 
 class DeclinedLabel extends StatelessWidget {
-  const DeclinedLabel({Key? key}) : super(key: key);
+  const DeclinedLabel({super.key});
 
   @override
   Widget build(BuildContext context) {
