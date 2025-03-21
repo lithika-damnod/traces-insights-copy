@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:traces/shared/widgets/shipment_details_titles.dart';
+import 'package:traces/shared/widgets/shipment_status_titles.dart';
 
 
 
@@ -11,7 +11,8 @@ class ShipmentDetailsDescription extends StatefulWidget {
   final String? dateTime;
   final String? address;
   final String? pickupLocation;
-  const ShipmentDetailsDescription({super.key, required this.shipmentStatus, this.dateTime, this.address,  this.pickupLocation});
+  final bool currentStatus;
+  const ShipmentDetailsDescription({super.key, required this.shipmentStatus, this.dateTime, this.address,  this.pickupLocation, this.currentStatus = false});
 
   @override
   State<ShipmentDetailsDescription> createState() => _ShipmentDetailsDescriptionState();
@@ -105,25 +106,33 @@ void assignColorAndIcons(String titleSimple){
 
             ),
             widget.dateTime != null ? Text("${widget.dateTime}", style: TextStyle(color: _textColor.withOpacity(0.3), fontSize: 17)) : SizedBox.shrink(),
+            SizedBox(
+              width: 5,
+            ),
+            Container(
+              width: 5,
+              height: 5,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color : widget.currentStatus ?  Color(0xFF422A1C) : Colors.transparent,
+              ),
+
+            )
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Flexible(
-              flex: 8,
-              child: Wrap(
-                  children: [
-                  Text("$description",style: TextStyle(color: _textColor.withOpacity(  titleSimple !="shipping address"? fontOpacity : 0.7),fontSize: discriptionFontSize)),
-                ]
-               ),
+            Expanded(
+              flex: titleSimple!="shipping address" ? 8 : 11,
+              child: Text("$description",style: TextStyle(color: _textColor.withOpacity(  titleSimple !="shipping address"? fontOpacity : 0.7),fontSize: discriptionFontSize)),
             ),
             Flexible(
             flex: 2,
             child: Container(
                 child: Padding(
-                  padding: const EdgeInsets.all(3.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: icon,
                 ),
               decoration: BoxDecoration(
