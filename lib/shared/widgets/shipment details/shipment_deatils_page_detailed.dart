@@ -14,7 +14,8 @@ class ShipmentDeatilsPageDetailed extends StatefulWidget {
   final String orderId;
   final String shipmentStatus;
 
-  const ShipmentDeatilsPageDetailed({required this.shipmentStatus,super.key, required this.orderId});
+  const ShipmentDeatilsPageDetailed(
+      {required this.shipmentStatus, super.key, required this.orderId});
 
   @override
   State<ShipmentDeatilsPageDetailed> createState() =>
@@ -39,12 +40,12 @@ class _ShipmentDeatilsPageDetailedState
           ),
           leading: Navigator.of(context).canPop()
               ? CupertinoNavigationBarBackButton(
-            color: Color(0xFF0A84FF),
-            previousPageTitle: "Back",
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          )
+                  color: Color(0xFF0A84FF),
+                  previousPageTitle: "Back",
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
               : null,
           trailing: IconButton(
             onPressed: () {
@@ -58,32 +59,61 @@ class _ShipmentDeatilsPageDetailedState
           ),
         ),
         backgroundColor: Colors.black,
-        body:Padding(
+        body: Padding(
           padding: EdgeInsets.only(top: 5, left: 16.0, right: 16.0, bottom: 30),
           child: ListView(
-
             children: [
-              Text("Shipment Overview",style: TextStyle(fontSize: 19),),
-               SizedBox(height: _height,),
-              ShipmentOverview( CalenderIcon: Icon(CupertinoIcons.calendar), shipmentStatus: widget.shipmentStatus.toUpperCase(), shiomentId: "TX 768 431", Date: "Thu Jan 30 "),
-              Text("Recipient Information",style: TextStyle(fontSize: 19),),
-               SizedBox(height: _height),
-              RecipientInformation( name: "Lithika Damnod ", address: "Madagalla Road, Polpithigama,Kurunegala, 60620", phoneNumber: "+94 770041341"),
-              Text("Sender Information",style: TextStyle(fontSize: 19),),
-               SizedBox(height: _height),
-              SenderInformation(businessName: "Amazon.com,Inc ", address: "3875 Airways, Module H3 Department 4634, Memphis"
-                   , contatctNumber: "+94 714442343"),
-              Text("Package  Information",style: TextStyle(fontSize: 19),),
-               SizedBox(height: _height),
-              PackageInformation(weight: "5KG", packageSize: "Small Bag", dimensions: "30cm x 20cm x 10cm"),
-              Text("Shipping Details",style: TextStyle(fontSize: 19),),
-               SizedBox(height: _height),
-              ShippingDetails(courierName: "FedEx Corporation", paymentMethod: "BankTransfer", paymentStatus: "Paid", totalCost: "LKR 32300")
-
-
+              Text(
+                "Shipment Overview",
+                style: TextStyle(fontSize: 19),
+              ),
+              SizedBox(
+                height: _height,
+              ),
+              ShipmentOverview(
+                  CalenderIcon: Icon(CupertinoIcons.calendar),
+                  shipmentStatus: widget.shipmentStatus.toUpperCase(),
+                  shiomentId: "TX 768 431",
+                  Date: "Thu Jan 30 "),
+              Text(
+                "Recipient Information",
+                style: TextStyle(fontSize: 19),
+              ),
+              SizedBox(height: _height),
+              RecipientInformation(
+                  name: "Lithika Damnod ",
+                  address: "Madagalla Road, Polpithigama,Kurunegala, 60620",
+                  phoneNumber: "+94 770041341"),
+              Text(
+                "Sender Information",
+                style: TextStyle(fontSize: 19),
+              ),
+              SizedBox(height: _height),
+              SenderInformation(
+                  businessName: "Amazon.com,Inc ",
+                  address: "3875 Airways, Module H3 Department 4634, Memphis",
+                  contatctNumber: "+94 714442343"),
+              Text(
+                "Package  Information",
+                style: TextStyle(fontSize: 19),
+              ),
+              SizedBox(height: _height),
+              PackageInformation(
+                  weight: "5KG",
+                  packageSize: "Small Bag",
+                  dimensions: "30cm x 20cm x 10cm"),
+              Text(
+                "Shipping Details",
+                style: TextStyle(fontSize: 19),
+              ),
+              SizedBox(height: _height),
+              ShippingDetails(
+                  courierName: "FedEx Corporation",
+                  paymentMethod: "BankTransfer",
+                  paymentStatus: "Paid",
+                  totalCost: "LKR 32300")
             ],
           ),
-        )
-    );
+        ));
   }
 }

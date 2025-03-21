@@ -7,20 +7,22 @@ class ShipmentOverview extends StatefulWidget {
   final String shipmentStatus;
   final String shiomentId;
   final String Date;
-  const ShipmentOverview({super.key,  required this.CalenderIcon, required this.shipmentStatus, required this.shiomentId, required this.Date});
+  const ShipmentOverview(
+      {super.key,
+      required this.CalenderIcon,
+      required this.shipmentStatus,
+      required this.shiomentId,
+      required this.Date});
 
   @override
   State<ShipmentOverview> createState() => _ShipmentOverviewState();
 }
 
 class _ShipmentOverviewState extends State<ShipmentOverview> {
+  Icon? titleIcon;
 
-   Icon? titleIcon;
-
-  void assignTitleIcon(){
-
-    switch(widget.shipmentStatus.toLowerCase()){
-
+  void assignTitleIcon() {
+    switch (widget.shipmentStatus.toLowerCase()) {
       case "in transit":
         titleIcon = Icon(
           CupertinoIcons.flag_fill,
@@ -29,10 +31,12 @@ class _ShipmentOverviewState extends State<ShipmentOverview> {
         );
         break;
 
-
       case "delivered":
-        titleIcon = Icon(CupertinoIcons.check_mark,
-          color: Colors.green,size: 20,);
+        titleIcon = Icon(
+          CupertinoIcons.check_mark,
+          color: Colors.green,
+          size: 20,
+        );
         break;
 
       case "canceled":
@@ -45,14 +49,10 @@ class _ShipmentOverviewState extends State<ShipmentOverview> {
 
       default:
         titleIcon = null;
-
     }
-
-
   }
 
-
-   @override
+  @override
   void initState() {
     super.initState();
     assignTitleIcon();
@@ -60,11 +60,18 @@ class _ShipmentOverviewState extends State<ShipmentOverview> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       children: [
-        ShipmentDetailsRowInfo(label: "Status", value: widget.shipmentStatus, icon: titleIcon, iconColor: Color(0xFFCDD93C)),
+        ShipmentDetailsRowInfo(
+            label: "Status",
+            value: widget.shipmentStatus,
+            icon: titleIcon,
+            iconColor: Color(0xFFCDD93C)),
         ShipmentDetailsRowInfo(label: "Shipment Id", value: widget.shiomentId),
-        ShipmentDetailsRowInfo(label: "Estimated Delivery Date ", value: widget.Date, icon: widget.CalenderIcon),
+        ShipmentDetailsRowInfo(
+            label: "Estimated Delivery Date ",
+            value: widget.Date,
+            icon: widget.CalenderIcon),
         SizedBox(
           height: 25,
         )

@@ -6,7 +6,11 @@ class RecipientInformation extends StatefulWidget {
   final String address;
   final String phoneNumber;
 
-  const RecipientInformation({super.key, required this.name, required this.address, required this.phoneNumber});
+  const RecipientInformation(
+      {super.key,
+      required this.name,
+      required this.address,
+      required this.phoneNumber});
 
   @override
   State<RecipientInformation> createState() => _RecipientInformationState();
@@ -19,13 +23,15 @@ class _RecipientInformationState extends State<RecipientInformation> {
       children: [
         ShipmentDetailsRowInfo(label: "Name", value: "${widget.name}"),
         ShipmentDetailsRowInfo(label: "Address", value: "${widget.address}"),
-        ShipmentDetailsRowInfo(label: "Contact Number", value: "${widget.phoneNumber}",isPhoneNumber: true,),
+        ShipmentDetailsRowInfo(
+          label: "Contact Number",
+          value: "${widget.phoneNumber}",
+          isPhoneNumber: true,
+        ),
         SizedBox(
           height: 25,
         )
       ],
-
-
     );
   }
 }
