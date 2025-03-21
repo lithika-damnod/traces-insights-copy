@@ -104,7 +104,7 @@ class _ShipmentDetailsPageInitialState
             : null,
         trailing: IconButton(
           onPressed: () {
-            showShipmentDetailsPageOptions(context: context );
+            showShipmentDetailsPageOptions(context: context);
           },
           icon: Icon(
             CupertinoIcons.ellipsis_circle,
