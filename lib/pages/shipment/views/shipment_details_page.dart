@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:traces/pages/shipment/views/shipment_details_page.dart';
 import 'package:traces/shared/widgets/shipment%20details/shipment_deatils_page_detailed.dart';
-
-import '../../../shared/widgets/test.dart';
 import '../../../shared/widgets/shipment details/shipment_details_page_initial.dart';
 
 class ShipmentDetailsPage extends StatefulWidget {
