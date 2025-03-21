@@ -4,13 +4,15 @@ import 'package:traces/pages/shipment/views/options/options_view.dart';
 import 'package:traces/shared/widgets/business_party_description.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/shared/widgets/order_confirmation_view.dart';
+import 'package:traces/shared/widgets/shipment%20details/shipment_details_page_options.dart';
 
-import '../../../shared/widgets/shipment_details_descriptions.dart';
-import 'package:traces/shared/widgets/shipment_details_titles.dart';
+import '../../../shared/widgets/shipment_details_description.dart';
+import 'package:traces/shared/widgets/shipment_status_titles.dart';
 
 class ShipmentDetailsPageInitial extends StatefulWidget {
+  final String shipmentStatus;
   final String orderId;
-  const ShipmentDetailsPageInitial({required this.orderId, super.key});
+  const ShipmentDetailsPageInitial({required this.shipmentStatus,required this.orderId, super.key});
 
   @override
   State<ShipmentDetailsPageInitial> createState() => _ShipmentDetailsPageInitialState();
@@ -20,11 +22,48 @@ class _ShipmentDetailsPageInitialState extends State<ShipmentDetailsPageInitial>
 
   final ScrollController _scrollController = ScrollController();
   bool _applyfade =  false;
+  Icon? titleIcon ;
+
+  void assignTitleIcon(){
+
+    switch(widget.shipmentStatus.toLowerCase()){
+
+      case "in transit":
+        titleIcon = Icon(
+    CupertinoIcons.flag_fill,
+    color: Color(0xFFCDD93C),
+    size: 20,
+    );
+        break;
+
+
+      case "delivered":
+        titleIcon = Icon(CupertinoIcons.check_mark,
+          color: Colors.green,size: 20,);
+        break;
+
+      case "canceled":
+        titleIcon = Icon(
+    CupertinoIcons.clear_circled,
+    size: 20,
+    color: CupertinoColors.systemRed,
+    );
+            break;
+
+      default:
+        titleIcon = null;
+
+    }
+
+
+  }
 
 
   @override
   void initState() {
+
     super.initState();
+    assignTitleIcon();
     WidgetsBinding.instance.addPostFrameCallback( (_){
       _checkScrollPosition();
     });
@@ -72,12 +111,7 @@ class _ShipmentDetailsPageInitialState extends State<ShipmentDetailsPageInitial>
             : null,
         trailing: IconButton(
           onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              builder: (context) => ModalBottomSheet(
-                child: OptionsView(),
-              ),
-            );
+            showShipmentDetailsPageOptions(context: context);
           },
           icon: Icon(
             CupertinoIcons.ellipsis_circle,
@@ -96,14 +130,14 @@ class _ShipmentDetailsPageInitialState extends State<ShipmentDetailsPageInitial>
             colors: _applyfade
                 ? [Colors.white, Colors.white, Colors.transparent]
                 : [Colors.white, Colors.white],
-            stops: _applyfade ? [0.0, 0.8, 1.0] : [0.0, 1.0],
+            stops: _applyfade ? [0.0, 0.85, 1.0] : [0.0, 1.0],
           ).createShader(rect);
         },
 
         child: Container(
           color: Colors.black,
           child: Padding(
-            padding: const EdgeInsets.only(top: 5, left: 16.0, right: 16.0, bottom: 30),
+            padding: const EdgeInsets.only(top: 5, left: 16.0, right: 16.0, bottom: 15),
             child: Stack(
               children: [
                 Column(
@@ -120,54 +154,40 @@ class _ShipmentDetailsPageInitialState extends State<ShipmentDetailsPageInitial>
                                   shape: BoxShape.circle,
                                   color: Color(0xFFCDD93C).withOpacity(0.2),
                                 ),
-                                child: Icon(
-                                  CupertinoIcons.flag_fill,
-                                  color: Color(0xFFCDD93C),
-                                  size: 20,
-                                ),
+                                child: titleIcon,
                               ),
                               SizedBox(width: 10),
-                              Text("IN TRANSIT", style: TextStyle(fontSize: 15.2)),
+                              Text(widget.shipmentStatus.toUpperCase(), style: TextStyle(fontSize: 15.2)),
                             ],
                           ),
                           SizedBox(height: 10),
                           ShipmentDetailsDescription(
                             shipmentStatus: ShipmentStatus.shippingAddress,
-                            address: "No.249/1,Kurunduwatta,Koskandawala,Yakkala",
+                            address: "No.25,Dambulla Road,Kurunegala,North Western,60000"
                           ),
                           SizedBox(height: 150),
-                          ShipmentDetailsDescription(shipmentStatus: ShipmentStatus.delivered),
-                          ShipmentDetailsDescription(shipmentStatus: ShipmentStatus.outForDelivery),
+                          ShipmentDetailsDescription(shipmentStatus: ShipmentStatus.delivered,dateTime: "April 22, 11:40 A.M",),
+                          ShipmentDetailsDescription(shipmentStatus: ShipmentStatus.outForDelivery,dateTime: "April 22, 11:40 A.M",currentStatus: true,),
                           ShipmentDetailsDescription(
                             shipmentStatus: ShipmentStatus.pickedUp,
                             pickupLocation: "Yakkala,Sri Lanka",
                             dateTime: "April 22, 11:40 A.M",
                           ),
                           BusinessPartyDescription(
-                            bussinessName: "Amazon Inc",
+                            bussinessName: "Amazon.com, Inc",
                             location: "Sri Lanka",
                             businessType: "E Commerce",
                             raiting: 4.5,
-                            imageUrl: "https://www.github.com/DihanWanasinghe.png",
+                            imageUrl: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-Logo.png",
                           ),
                           BusinessPartyDescription(
-                            bussinessName: "Amazon Inc",
+                            bussinessName: "UPS International",
                             location: "Sri Lanka",
                             businessType: "E Commerce",
-                            raiting: 4.5,
+                            raiting: 3.5,
+                            imageUrl: "https://1000logos.net/wp-content/uploads/2021/04/UPS-logo.png",
                           ),
-                          BusinessPartyDescription(
-                            bussinessName: "Amazon Inc",
-                            location: "Sri Lanka",
-                            businessType: "E Commerce",
-                            raiting: 4.5,
-                          ),
-                          BusinessPartyDescription(
-                            bussinessName: "Amazon Inc",
-                            location: "Sri Lanka",
-                            businessType: "E Commerce",
-                            raiting: 4.5,
-                          ),
+
                         ],
                       ),
                     ),
