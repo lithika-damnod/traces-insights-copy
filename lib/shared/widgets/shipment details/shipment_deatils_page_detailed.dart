@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:traces/shared/widgets/shipment%20details/package_information.dart';
 import 'package:traces/shared/widgets/shipment%20details/recipient_information.dart';
 import 'package:traces/shared/widgets/shipment%20details/sender_information.dart';
+import 'package:traces/shared/widgets/shipment%20details/shipment_details_page_options.dart';
 import 'package:traces/shared/widgets/shipment%20details/shipment_overview.dart';
 import 'package:traces/shared/widgets/shipment%20details/shipping_details.dart';
 
-import '../../pages/shipment/views/options/options_view.dart';
-import 'modal_bottom_sheet.dart';
+import '../../../pages/shipment/views/options/options_view.dart';
+import '../modal_bottom_sheet.dart';
 
 class ShipmentDeatilsPageDetailed extends StatefulWidget {
   final String orderId;
@@ -47,13 +48,7 @@ class _ShipmentDeatilsPageDetailedState
               : null,
           trailing: IconButton(
             onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) =>
-                    ModalBottomSheet(
-                      child: OptionsView(),
-                    ),
-              );
+              showShipmentDetailsPageOptions(context: context);
             },
             icon: Icon(
               CupertinoIcons.ellipsis_circle,

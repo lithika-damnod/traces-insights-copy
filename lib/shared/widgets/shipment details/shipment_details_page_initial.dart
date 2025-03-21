@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:traces/pages/shipment/views/options/options_view.dart';
-import 'package:traces/shared/widgets/business_party_description.dart';
+import 'package:traces/shared/widgets/shipment%20details/business_party_description.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 import 'package:traces/shared/widgets/order_confirmation_view.dart';
 import 'package:traces/shared/widgets/shipment%20details/shipment_details_page_options.dart';
 
-import '../../../shared/widgets/shipment_details_description.dart';
-import 'package:traces/shared/widgets/shipment_status_titles.dart';
+import 'shipment_details_description.dart';
+import 'package:traces/shared/widgets/shipment%20details/shipment_status_titles.dart';
 
 class ShipmentDetailsPageInitial extends StatefulWidget {
   final String shipmentStatus;
@@ -111,7 +111,7 @@ class _ShipmentDetailsPageInitialState extends State<ShipmentDetailsPageInitial>
             : null,
         trailing: IconButton(
           onPressed: () {
-            showShipmentDetailsPageOptions(context: context);
+            showShipmentDetailsPageOptions(context: context,inTransit: false);
           },
           icon: Icon(
             CupertinoIcons.ellipsis_circle,
@@ -187,7 +187,6 @@ class _ShipmentDetailsPageInitialState extends State<ShipmentDetailsPageInitial>
                             raiting: 3.5,
                             imageUrl: "https://1000logos.net/wp-content/uploads/2021/04/UPS-logo.png",
                           ),
-
                         ],
                       ),
                     ),
