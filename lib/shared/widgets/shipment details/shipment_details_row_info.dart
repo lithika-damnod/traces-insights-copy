@@ -44,10 +44,12 @@ class _ShipmentDetailsRowInfoState extends State<ShipmentDetailsRowInfo> {
                 fontSize: 18,
               ),
             ),
-            SizedBox(width: 40, height: 0,),
+            SizedBox(width:widget.icon?.icon == CupertinoIcons.calendar ? 10 :40, height: 0,),
             Expanded(
               //flex: 2,
               child: Row(
+                //crossAxisAlignment: CrossAxisAlignment.start,
+
                 mainAxisAlignment: MainAxisAlignment.end,
                 // Aligns items to the right
                 children: [
