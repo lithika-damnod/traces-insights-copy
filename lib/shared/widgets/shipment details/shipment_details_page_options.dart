@@ -71,7 +71,7 @@ void showShipmentDetailsPageOptions(
                     optionName: "Request Return",
                     icon: Icon(CupertinoIcons.refresh),
                     notInTransit: !inTransit,
-                    lastItem: true),
+                    lastItem: true,),
                 option(
                     optionName: "Cancel Order",
                     icon: Icon(CupertinoIcons.clear_circled,
@@ -109,8 +109,7 @@ Widget option({
           ? Color(0xFFFF453A)
           : Colors.white;
 
-  return ((notInTransit &&
-          (optionName.contains("Edit") || optionName.contains("Cancel"))))
+  return ((notInTransit && (optionName.contains("Edit") || ( optionName.contains("Cancel")  )) )  ||  (notInTransit==false && optionName.contains("Return") )     )
       ? SizedBox.shrink()
       : InkWell(
           onTap: navigateTo,
