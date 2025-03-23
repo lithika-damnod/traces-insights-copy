@@ -32,6 +32,37 @@ class AuthenticationService {
     }
   }
 
+  Future<bool> signup(
+    String email,
+    String password,
+    String firstName,
+    String lastName,
+  ) async {
+    try {
+      final response =
+          await _dio.post('${ApiConfig.baseUrl}/api/auth/register/', data: {
+        'email': email,
+        'password': password,
+        'role': "standard",
+        "first_name": firstName,
+        "last_name": lastName,
+      });
+
+      if (response.statusCode == 200) {
+        String accessToken = response.data['access'];
+        String refreshToken = response.data['refresh'];
+
+        await AuthProvider().login(accessToken, refreshToken);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      if (kDebugMode) print("Error during login: $e");
+      return false;
+    }
+  }
+
   Future<void> logout() async {
     try {
       await AuthProvider().logout();

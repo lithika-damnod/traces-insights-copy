@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:traces/core/services/notifications_service.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:traces/pages/authentication/cubit/authentication_form_notifier.dart';
 import 'package:traces/pages/authentication/views/authentication_page.dart';
 import 'package:traces/pages/home/layouts/layout.dart';
 import 'package:traces/core/utils/auth_provider.dart';
@@ -11,12 +13,13 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   NotificationsService().initialize();
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => AuthProvider()..init(), // Initialize on app start
-      child: const RootWidget(),
-    ),
-  );
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => AuthProvider()..init()),
+      ChangeNotifierProvider(create: (context) => AuthState()),
+    ],
+    child: const RootWidget(),
+  ));
 }
 
 class RootWidget extends StatefulWidget {
