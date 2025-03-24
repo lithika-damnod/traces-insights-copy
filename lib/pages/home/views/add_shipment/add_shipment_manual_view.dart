@@ -186,7 +186,7 @@ class TrackingInputField extends StatelessWidget {
         hintText: "Enter Tracking Number",
         hintStyle: const TextStyle(
           color: Color.fromRGBO(235, 235, 245, 0.6),
-          fontSize: 18,
+          fontSize: 17.8,
           fontWeight: FontWeight.w500,
         ),
         filled: true,
@@ -215,7 +215,7 @@ class TrackingInputField extends StatelessWidget {
               icon: const Icon(
                 CupertinoIcons.xmark_circle_fill,
                 color: Colors.grey,
-                size: 20,
+                size: 21,
               ),
               onPressed: onClear,
             ),
