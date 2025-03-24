@@ -25,7 +25,7 @@ class _AccountPageState extends State<AccountPage> {
           const Text(
             'Lithika Damnod',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 21,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
@@ -34,7 +34,7 @@ class _AccountPageState extends State<AccountPage> {
           const Text(
             'l.d.b.dasanayaka@gmail.com',
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 15,
               color: Colors.grey,
             ),
           ),
