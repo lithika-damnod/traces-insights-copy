@@ -43,6 +43,7 @@ dependencies:
   geolocator: ^13.0.2
   permission_handler: ^11.4.0
   firebase_database: ^11.3.4
+  widget_to_marker: ^1.0.6
   modal_bottom_sheet: ^3.0.0
   firebase_messaging: ^15.2.4
   flutter_launcher_icons: ^0.14.3
