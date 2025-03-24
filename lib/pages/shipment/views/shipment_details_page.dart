@@ -1,76 +1,96 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:traces/pages/shipment/views/options/options_view.dart';
-import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
-import 'package:traces/shared/widgets/order_confirmation_view.dart';
+import 'package:flutter/material.dart';
+import 'package:traces/features/home/services/fetch_shipments_service.dart';
+import 'package:traces/shared/widgets/shipment%20details/shipment_deatils_page_detailed.dart';
+import '../../../shared/widgets/shipment details/shipment_details_page_initial.dart';
 
 class ShipmentDetailsPage extends StatefulWidget {
-  const ShipmentDetailsPage({super.key});
+  final String shipmentId;
 
   @override
-  State<ShipmentDetailsPage> createState() => _ShipmentDetailsPageState();
+  _ShipmentDetailsPageState createState() => _ShipmentDetailsPageState();
+
+  const ShipmentDetailsPage({super.key, required this.shipmentId});
 }
 
 class _ShipmentDetailsPageState extends State<ShipmentDetailsPage> {
+  final PageController _controller = PageController();
+  int _currentIndex = 0;
+  bool loaded = false;
+  Map<String, dynamic>? response;
+  List<dynamic>? timeline;
+
+  @override
+  void initState() {
+    // fetch shipment information
+    _fetchShipmentInfo();
+    super.initState();
+  }
+
+  Future<void> _fetchShipmentInfo() async {
+    response =
+        await FetchShipmentsService().fetchShipmentsById(widget.shipmentId);
+    timeline =
+        await FetchShipmentsService().fetchShipmentTimeline(widget.shipmentId);
+
+    print("timeline: $timeline");
+    await Future.delayed(const Duration(seconds: 1));
+
+    setState(() {
+      loaded = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: Start replacing content from here
     return Scaffold(
-      appBar: CupertinoNavigationBar(
-        padding: EdgeInsetsDirectional.all(0.0),
-        backgroundColor: Colors.black,
-        middle: Text(
-          "Shipment Details",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.0,
-          ),
-        ),
-        leading: Navigator.of(context).canPop()
-            ? CupertinoNavigationBarBackButton(
-                color: Color(0xFF0A84FF),
-                previousPageTitle: "Back",
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            : null,
-        trailing: IconButton(
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              builder: (context) => ModalBottomSheet(
-                /* content starts here */
-                child: OptionsView(),
-                /* content ends here */
-              ),
-            );
-          },
-          icon: Icon(
-            CupertinoIcons.ellipsis_circle,
-            size: 24.0,
-            color: Color(0xFF0A84FF),
-          ),
-        ),
-      ),
       backgroundColor: Colors.black,
-      body: Container(
-        color: Colors.black,
-        child: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => ModalBottomSheet(
-                  showCloseButton: true,
-                  child: OrderConfirmationView(),
+      body: !loaded
+          ? Center(
+              child: CupertinoActivityIndicator(),
+            )
+          : Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    controller: _controller,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
+                    children: [
+                      ShipmentDetailsPageInitial(
+                        orderId: widget.shipmentId,
+                        shipmentStatus: "in transit",
+                        shipmentData: response,
+                        timeline: timeline,
+                      ),
+                      ShipmentDeatilsPageDetailed(
+                        orderId: widget.shipmentId,
+                        shipmentStatus: "in transit",
+                      ),
+                    ],
+                  ),
                 ),
-              );
-            },
-            child: Text("Receive Order Confirmation (Test)"),
-          ),
-        ),
-      ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(2, (index) {
+                    return Container(
+                      margin: EdgeInsets.all(5),
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color:
+                            _currentIndex == index ? Colors.white : Colors.grey,
+                      ),
+                    );
+                  }),
+                ),
+                SizedBox(height: 20),
+              ],
+            ),
     );
   }
 }
