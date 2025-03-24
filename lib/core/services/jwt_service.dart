@@ -28,7 +28,7 @@ class JwtService {
             try {
               // Assume an endpoint to refresh the token
               Response response = await _dio
-                  .post('${ApiConfig.baseUrl}/auth/token/refresh/', data: {
+                  .post('${ApiConfig.baseUrl}/api/auth/token/refresh/', data: {
                 'refresh': refreshToken,
               });
 
