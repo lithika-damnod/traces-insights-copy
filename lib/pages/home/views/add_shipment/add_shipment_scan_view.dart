@@ -96,7 +96,7 @@ class QRScanFinder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 310.0,
+      height: 320.0,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.black,
