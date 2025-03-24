@@ -90,15 +90,6 @@ class _PoliciesPageState extends State<PoliciesPage> {
                 ],
               ),
               SizedBox(height: 10),
-              // Text(
-              //   "By using our platform, you agree to our Terms of Service.You are responsible for your account information and ensuring it is used lawfully.All content is protected by intellectual property laws.We are not liable for any damages resulting from your use of the service.",
-              //   style: TextStyle(
-              //     fontSize: 16,
-              //     fontWeight: FontWeight.w500,
-              //     color: Colors.white70,
-              //     height: 1.6,
-              //   ),
-              // ),
               Text.rich(
                 TextSpan(
                   children: [
@@ -109,7 +100,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
                         color: Color.fromARGB(153, 255, 255, 255),
-                        height: 1.5,
+                        height: 1.6, //changed the height of the textbox
                       ),
                     ),
                     TextSpan(
@@ -128,7 +119,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(153, 255, 255, 255),
+                        color: Color.fromARGB(154, 255, 255, 255),
                         height: 1.5,
                       ),
                     ),
@@ -156,7 +147,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                     ),
                   ),
                   SizedBox(width: 5),
-                  Icon(CupertinoIcons.link, size: 18, color: Colors.blue),
+                  Icon(CupertinoIcons.link, size: 19, color: Colors.blue),
                 ],
               ),
               SizedBox(height: 10),
