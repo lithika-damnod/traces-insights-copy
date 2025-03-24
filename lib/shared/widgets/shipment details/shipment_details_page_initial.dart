@@ -9,8 +9,16 @@ import 'package:traces/shared/widgets/shipment%20details/shipment_status_titles.
 class ShipmentDetailsPageInitial extends StatefulWidget {
   final String shipmentStatus;
   final String orderId;
-  const ShipmentDetailsPageInitial(
-      {required this.shipmentStatus, required this.orderId, super.key});
+  Map<String, dynamic>? shipmentData;
+  List<dynamic>? timeline;
+
+  ShipmentDetailsPageInitial({
+    required this.shipmentStatus,
+    required this.orderId,
+    super.key,
+    this.shipmentData,
+    this.timeline,
+  });
 
   @override
   State<ShipmentDetailsPageInitial> createState() =>
@@ -82,12 +90,20 @@ class _ShipmentDetailsPageInitialState
 
   @override
   Widget build(BuildContext context) {
+    final shipment = widget.shipmentData!;
+    final recipient = shipment["recipient"] ?? {};
+    final address = recipient["address"] ?? {};
+    final merchant = shipment["merchant"] ?? {};
+    final logistics = shipment["logistics"] ?? {};
+    final package = shipment["package"] ?? {};
+    final payment = shipment["payment"] ?? {};
+
     return Scaffold(
       appBar: CupertinoNavigationBar(
         padding: EdgeInsetsDirectional.all(0.0),
         backgroundColor: Colors.black,
         middle: Text(
-          " #${widget.orderId}",
+          " ${widget.orderId}",
           style: TextStyle(
             color: Colors.white,
             fontSize: 18.0,
@@ -155,23 +171,25 @@ class _ShipmentDetailsPageInitialState
                           ),
                           SizedBox(height: 10),
                           ShipmentDetailsDescription(
-                              shipmentStatus: ShipmentStatus.shippingAddress,
-                              address:
-                                  "No.25,Dambulla Road,Kurunegala,North Western,60000"),
-                          SizedBox(height: 150),
+                            shipmentStatus: ShipmentStatus.shippingAddress,
+                            address:
+                                ('${address["address_line_1"]}, ${address["city"]}, ${address["country"]}'),
+                          ),
+                          //"No.25,Dambulla Road,Kurunegala,North Western,60000"),
+                          SizedBox(height: 20),
                           ShipmentDetailsDescription(
                             shipmentStatus: ShipmentStatus.delivered,
-                            dateTime: "April 22, 11:40 A.M",
+                            dateTime: "Mar 22, 11:40 A.M",
                           ),
                           ShipmentDetailsDescription(
                             shipmentStatus: ShipmentStatus.outForDelivery,
-                            dateTime: "April 22, 11:40 A.M",
+                            dateTime: "Mar 19, 11:22 A.M",
                             currentStatus: true,
                           ),
                           ShipmentDetailsDescription(
                             shipmentStatus: ShipmentStatus.pickedUp,
                             pickupLocation: "Yakkala,Sri Lanka",
-                            dateTime: "April 22, 11:40 A.M",
+                            dateTime: "Mar 17, 11:12 A.M",
                           ),
                           BusinessPartyDescription(
                             bussinessName: "Amazon.com, Inc",

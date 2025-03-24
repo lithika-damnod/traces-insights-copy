@@ -32,7 +32,7 @@ class _ShipmentDeatilsPageDetailedState
           padding: EdgeInsetsDirectional.all(0.0),
           backgroundColor: Colors.black,
           middle: Text(
-            " #${widget.orderId}",
+            "${widget.orderId}",
             style: TextStyle(
               color: Colors.white,
               fontSize: 18.0,

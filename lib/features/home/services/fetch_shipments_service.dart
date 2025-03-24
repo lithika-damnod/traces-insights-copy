@@ -18,4 +18,34 @@ class FetchShipmentsService {
       throw Exception('Failed to fetch data: $e');
     }
   }
+
+  Future<Map<String, dynamic>?> fetchShipmentsById(String id) async {
+    try {
+      final response = await _dio.get(
+          '${ApiConfig.baseUrl}/api/shipments/${id.toString().replaceAll(" ", '-')}/');
+
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        throw Exception('Failed to load shipments');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch data: $e');
+    }
+  }
+
+  Future<List<dynamic>?> fetchShipmentTimeline(String id) async {
+    try {
+      final response = await _dio.get(
+          '${ApiConfig.baseUrl}/api/shipments/${id.toString().replaceAll(" ", '-')}/timeline/');
+
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        throw Exception('Failed to load shipments');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch data: $e');
+    }
+  }
 }
