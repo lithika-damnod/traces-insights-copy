@@ -17,7 +17,7 @@ class AddShipmentScanView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TitleWithInstruction(),
-              SizedBox(height: 10),
+              SizedBox(height: 11),
               QRScanFinder(),
             ],
           ),
@@ -38,8 +38,8 @@ class BackButtonIconOnly extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Container(
-        width: 43.56,
-        height: 43.56,
+        width: 43.76,
+        height: 43.76, //changed the icon size for a better layout
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.grey[900],
