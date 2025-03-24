@@ -9,22 +9,26 @@ class StyledTextField extends StatefulWidget {
     this.type = "text", // "text" (default) | "email" | "password" | "number"
     this.focused = false,
     this.compare,
+    this.controller,
     this.onSubmitted,
     this.controller,
     this.focusNode,
     this.inputFormatters,
     this.disableClearIcon = false,
+    this.onValueChange,
   });
 
   final String placeholder;
   final String type;
   final bool focused;
   final String? compare;
+  final TextEditingController? controller;
   final void Function(String)? onSubmitted;
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final List<TextInputFormatter>? inputFormatters;
   final bool disableClearIcon;
+  final void Function(String)? onValueChange;
 
   @override
   State<StyledTextField> createState() => _StyledTextFieldState();
@@ -32,15 +36,18 @@ class StyledTextField extends StatefulWidget {
 
 class _StyledTextFieldState extends State<StyledTextField> {
   final TextEditingController _textEditingController = TextEditingController();
+  
   bool _enabledClearOptions = false;
   bool _matched = false;
   bool _obscureText = false;
+  late final TextEditingController _textEditingController;
 
   @override
   void initState() {
     super.initState();
     _enabledClearOptions = widget.type.toLowerCase() == "password";
     _obscureText = widget.type.toLowerCase() == "password";
+    _textEditingController = widget.controller ?? TextEditingController();
   }
 
   TextInputType _getKeyboardType() {
@@ -200,6 +207,15 @@ class _StyledTextFieldState extends State<StyledTextField> {
         color: Colors.white,
         fontSize: 19.0,
         fontWeight: FontWeight.w600,
+                    onChanged: (String value) {
+                      handleOnChange(value);
+                      widget.onValueChange!(value);
+                    },
+                    controller: _textEditingController),
+              ],
+            ),
+          );
+        },
       ),
       onChanged: (String value) {
         handleOnChange(value);
