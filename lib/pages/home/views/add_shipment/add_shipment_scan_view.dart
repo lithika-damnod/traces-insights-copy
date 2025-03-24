@@ -23,7 +23,7 @@ class AddShipmentScanView extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 8,
+          right: 7,
           child: BackButtonIconOnly(),
         ),
       ],
@@ -84,7 +84,7 @@ class TitleWithInstruction extends StatelessWidget {
             height: 1.4,
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 7.5),
       ],
     );
   }
@@ -105,7 +105,7 @@ class QRScanFinder extends StatelessWidget {
       child: const Center(
         child: Icon(
           CupertinoIcons.qrcode_viewfinder,
-          size: 180.0,
+          size: 183.0,
           color: Colors.white30,
         ),
       ),
