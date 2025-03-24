@@ -21,7 +21,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10),
+              SizedBox(height: 11),
               Text(
                 "Review Policies and Create Account",
                 style: TextStyle(
@@ -30,7 +30,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 21),
               Text(
                 "Welcome to Traces",
                 style: TextStyle(
