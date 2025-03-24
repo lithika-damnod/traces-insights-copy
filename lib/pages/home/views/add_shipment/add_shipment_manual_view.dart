@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:traces/core/constants/api_config.dart';
+import 'package:traces/core/services/jwt_service.dart';
+import 'package:traces/pages/home/layouts/layout.dart';
 import 'package:traces/pages/home/views/add_shipment/add_shipment_scan_view.dart';
 import 'package:traces/shared/widgets/modal_bottom_sheet.dart';
 
@@ -13,11 +17,38 @@ class AddShipmentManualView extends StatefulWidget {
 class _AddShipmentManualViewState extends State<AddShipmentManualView> {
   final TextEditingController _trackingController = TextEditingController();
   bool _isTrackingEntered = false;
+  String trackingId = "";
+
+  Future<void> linkShipment(String trackingId) async {
+    await JwtService()
+        .post("${ApiConfig.baseUrl}/api/shipments/$trackingId/link/");
+  }
 
   void _onTrackingChanged(String value) {
+    // check validity of the tracking_no
     setState(() {
-      _isTrackingEntered = value.isNotEmpty;
+      checkTrackingNoValidity(value);
+      trackingId = value;
     });
+  }
+
+  Future<void> checkTrackingNoValidity(String trackingNo) async {
+    try {
+      final response = await JwtService().get(
+        "${ApiConfig.baseUrl}/api/shipments/validate/?id=$trackingNo",
+      );
+
+      print("API Response: $response"); // Check what the API is returning
+
+      final responseData = response.data as Map<String, dynamic>;
+      bool isValid = responseData['validity'] ?? false;
+      print("Tracking Validity: $isValid");
+      setState(() {
+        _isTrackingEntered = isValid;
+      });
+    } catch (e) {
+      if (kDebugMode) print("Error checking tracking number validity: $e");
+    }
   }
 
   @override
@@ -42,7 +73,19 @@ class _AddShipmentManualViewState extends State<AddShipmentManualView> {
                 },
               ),
               const SizedBox(height: 14.0),
-              AddShipmentButton(isEnabled: _isTrackingEntered),
+              AddShipmentButton(
+                  isEnabled: _isTrackingEntered,
+                  onPressed: () {
+                    // send request and make it assign to you
+                    linkShipment(trackingId);
+
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => BaseLayout(),
+                        ));
+                  }),
             ],
           ),
         ),
@@ -186,15 +229,20 @@ class TrackingInputField extends StatelessWidget {
 // ADD SHIPMENT BUTTON
 class AddShipmentButton extends StatelessWidget {
   final bool isEnabled;
+  final Function onPressed;
 
-  const AddShipmentButton({required this.isEnabled});
+  const AddShipmentButton({required this.isEnabled, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: isEnabled ? () {} : null,
+        onPressed: isEnabled
+            ? () {
+                onPressed();
+              }
+            : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: isEnabled ? Colors.blue : Colors.grey[800],
           foregroundColor: Colors.white,

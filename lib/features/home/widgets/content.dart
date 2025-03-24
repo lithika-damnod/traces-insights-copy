@@ -20,31 +20,30 @@ class _ContentState extends State<Content> {
       spacing: 35.0,
       children: [
         SizedBox(height: 3.0),
-        ...widget.groupedShipments.entries.map((entry) {
+        ...widget.groupedShipments.entries
+            .where((entry) => entry.value.isNotEmpty)
+            .map((entry) {
           final group = entry.key;
           final shipments = entry.value;
 
           final groupType = _getGroupType(group);
 
-          if (shipments.isNotEmpty) {
-            return ShipmentGroup(
-              group: groupType,
-              children: shipments.map((shipment) {
-                return ShipmentCard(
-                  type: groupType,
-                  identifier: shipment['id'].toString().replaceAll('-', ' '),
-                  timestamp: formatDate(shipment['delivery_date']),
-                  merchant: shipment['merchant_name'] ?? "",
-                  logistics: shipment['logistics_name'] ?? "",
-                  description: groupType == Group.inTransit
-                      ? shipment['description']
-                      : null,
-                  bubble: groupType == Group.outForDelivery,
-                );
-              }).toList(),
-            );
-          }
-          return SizedBox.shrink();
+          return ShipmentGroup(
+            group: groupType,
+            children: shipments.map((shipment) {
+              return ShipmentCard(
+                type: groupType,
+                identifier: shipment['id'].toString().replaceAll('-', ' '),
+                timestamp: formatDate(shipment['delivery_date']),
+                merchant: shipment['merchant_name'] ?? "",
+                logistics: shipment['logistics_name'] ?? "",
+                description: groupType == Group.inTransit
+                    ? shipment['description']
+                    : null,
+                bubble: groupType == Group.outForDelivery,
+              );
+            }).toList(),
+          );
         }),
         SizedBox(height: 20.0),
       ],
