@@ -33,7 +33,9 @@ class ShipmentCard extends StatelessWidget {
         Navigator.push(
           context,
           CupertinoPageRoute(
-            builder: (context) => const ShipmentDetailsPage(),
+            builder: (context) => ShipmentDetailsPage(
+              shipmentId: identifier,
+            ),
           ),
         );
       },
