@@ -179,13 +179,13 @@ class TrackingInputField extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       style: const TextStyle(
-        color: Color.fromRGBO(235, 235, 245, 0.6),
+        color: Color.fromRGBO(235, 235, 245, 0.8),
         fontSize: 18,
       ),
       decoration: InputDecoration(
         hintText: "Enter Tracking Number",
         hintStyle: const TextStyle(
-          color: Color.fromRGBO(235, 235, 245, 0.6),
+          color: Color.fromRGBO(235, 235, 245, 0.8),
           fontSize: 17.8,
           fontWeight: FontWeight.w500,
         ),
