@@ -139,8 +139,8 @@ class QRCodeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Container(
-        width: 43.56,
-        height: 43.56,
+        width: 43.76, //changed the circle size of the icon
+        height: 43.76,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.grey[900],
